@@ -10,10 +10,10 @@ exports.signin = async(req, res, next) => {
         if (user) {
             const isValid = await bcrypt.compare(req.body.password, user.password);
             if (isValid) {
-                const token = jwt.sign({ data: req.body.username }, config.jwtKey, {
+                const token = jwt.sign({ userId: user.id }, config.jwtKey, {
                     expiresIn: config.expiresIn
                 });
-                res.status(200).send(new ApiResponse(200, 'success', { token: token, expiresIn: config.expiresIn, user: user }));
+                res.status(200).send(new ApiResponse(200, 'success', { token: token, auth: true }));
             } else {
                 res.status(401).send(new ApiResponse(401, 'error', { err: 'username or password not exist' }));
             }
@@ -27,7 +27,7 @@ exports.signin = async(req, res, next) => {
 }
 
 exports.signout = async(req, res, next) => {
-    
+    res.status(200).send({ auth: false, token: null });
 }
 
 exports.signup = async(req, res, next) => {

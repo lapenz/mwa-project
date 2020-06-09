@@ -32,16 +32,13 @@ const userSchema = new Schema({
 
 
 userSchema.statics.addUser = function(user){
-    const existUser = this.find({ username: user.username });
-    if(existUser){
-        return existUser;
-    }
-    else {
-        const hashedPassword = bcrypt.hashSync(user.password, 8);
-        user.password = hashedPassword;
-        user.isApprovedUser = user.role == role.Seller ? 0 : 1;
-        return this.create(user);
-    }
+
+    const hashedPassword = bcrypt.hashSync(user.password, 8);
+    user.password = hashedPassword;
+    user.isApprovedUser = user.role == role.Seller ? 0 : 1;
+
+    return this.create(user);
+
 }
 
 userSchema.statics.isValidAddUser = function(userparam){
