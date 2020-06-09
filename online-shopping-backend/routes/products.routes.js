@@ -4,6 +4,7 @@ const router = express.Router();
 const productsController = require('../controller/ProductsController');
 
 router.get('/products', productsController.findAll);
+router.get('/sellerProducts', productsController.findAllFromSeller);
 router.post('/products', productsController.register);
 
 router.get('/products/:id', productsController.findById);
