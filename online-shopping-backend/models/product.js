@@ -17,7 +17,13 @@ const userSchema = new Schema({
     seller: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    
+    reviews: [{
+            description: { type: String , required: true},
+            rating: { type: Number, required: true }
+            }]
+            
 
 });
 

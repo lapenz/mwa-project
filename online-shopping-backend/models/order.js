@@ -1,7 +1,7 @@
 const Schema = mongoose.Schema;
 
 
-const userSchema = new Schema({
+const orderSchema = new Schema({
     totalPrice: {
         type: Number,
         required: true
@@ -10,22 +10,41 @@ const userSchema = new Schema({
         type: Date,
         required: true
     },
+    status: {
+        type: String,
+        required: true
+    },
     products: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Product"
         }
     ],
-    seller: {
+    billingAddress: 
+    {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: "Address"
+    },  
+    ShippingAddress: 
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address"
     },
     buyer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    coupon: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Coupon"
+    },
+    payment: 
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Payment"
+    },
 
 });
 
 
-module.exports = mongoose.model('Order', userSchema);
+module.exports = mongoose.model('Order', orderSchema);

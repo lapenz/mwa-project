@@ -27,7 +27,11 @@ const userSchema = new Schema({
     },
     birthDate: Date,
     role: String,
-    isApprovedUser: Number
+    isApprovedUser: Number,
+    cart: { type: Schema.Types.ObjectId,
+        ref: 'Cart'
+    }
+
 });
 
 
