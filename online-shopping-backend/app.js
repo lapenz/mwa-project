@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const userRoutes = require('./routes/users.routes');
 const authRoutes = require('./routes/auth.routes');
+const productRoutes = require('./routes/products.routes');
 const authMiddleware = require('./middleware/authJwt');
 const config = require('./util/config');
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use(authRoutes);
 app.use(authMiddleware.verifyToken);
 app.use(userRoutes);
+app.use(productRoutes);
 
 mongoose.connect(config.dbUrl + config.dbName, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
