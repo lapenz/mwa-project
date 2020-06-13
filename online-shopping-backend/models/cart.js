@@ -1,31 +1,73 @@
-const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose');
-const role = require('../util/role');
-const Schema = mongoose.Schema;
+class Cart {
+    constructor() {
+        this.data = {};
+        this.data.items = [];
+        this.data.totals = 0;
+    }
 
+    inCart(productID = 0) {
+        let found = false;
+        this.data.items.forEach(item => {
+            if(item.id === productID) {
+                found = true;
+            }
+        });
+        return found;
+    }
 
-const cartSchema = new Schema({
-    
-    totalPrice: {
-        type: Number,
-        required: true
-    },
-    products: [{
-        product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
-        },
-        quantity: {
-            type: Number,
-            required: true
-        },
-    }]
-    
-    
+    calculateTotals() {
+        this.data.totals = 0;
+        this.data.items.forEach(item => {
+            let price = item.price;
+            let qty = item.qty;
+            let amount = price * qty;
 
-});
+            this.data.totals += amount;
+        });
 
+    }
 
+    addToCart(product = null, qty = 1) {
+        if(!this.inCart(product.id)) {
+            let prod = {
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                qty: qty,
+                image: product.image
+            };
+            this.data.items.push(prod);
+            this.calculateTotals();
+        }
+    }
 
+    saveCart(request) {
+        if(request.session) {
+            request.session.cart = this.data;
+        }
+    }
 
-module.exports = mongoose.model('Cart', cartSchema);
+    removeFromCart(id = 0) {
+        for(let i = 0; i < this.data.items.length; i++) {
+            let item = this.data.items[i];
+            if(item.id === id) {
+                this.data.items.splice(i, 1);
+                this.calculateTotals();
+            }
+        }
+
+    }
+
+    emptyCart(request) {
+        this.data.items = [];
+        this.data.totals = 0;
+        if(request.session) {
+            request.session.cart.items = [];
+            request.session.cart.totals = 0;
+        }
+
+    }
+
+}
+
+module.exports = new Cart();
