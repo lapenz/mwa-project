@@ -14,13 +14,7 @@ export class MasterpageComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      console.log('activatedRoute: ' + this.activatedRoute.root.data);
-
-    });
-   
+    this.router.navigate(['home']);   
   }
 
 }

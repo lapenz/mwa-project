@@ -11,17 +11,17 @@ export class AppComponent {
   data: any;
   msgs: any;
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService) {
-    this.data = this.activatedRoute.data;
+    // this.data = this.activatedRoute.data;
 
-    router.events.subscribe(event => {
+    // router.events.subscribe(event => {
 
-      if (event instanceof NavigationError) {
-        this.router.navigate(["/login"]);
-        this.auth.destroyToken();
-      }
-      else {
-        this.router.navigate(["/home"]);
-      }
-    });
+    //   if (event instanceof NavigationError) {
+    //     this.router.navigate(["/login"]);
+    //     this.auth.destroyToken();
+    //   }
+    //   else {
+    //     this.router.navigate(["/home"]);
+    //   }
+    // });
   }
 }
