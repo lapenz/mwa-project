@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { SignupComponent } from './Sign/signup/signup.component';
 import { SigninComponent } from './Sign/signin/signin.component';
 import { MasterpageComponent } from './masterpage/masterpage.component';
