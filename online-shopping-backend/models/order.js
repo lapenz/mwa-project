@@ -14,12 +14,7 @@ const orderSchema = new Schema({
         type: String,
         required: true
     },
-    products: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
-        }
-    ],
+    cart: {type: Object, required: true},
     billingAddress: 
     {
         type: mongoose.Schema.Types.ObjectId,

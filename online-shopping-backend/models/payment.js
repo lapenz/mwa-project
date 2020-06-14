@@ -14,7 +14,10 @@ const paymentSchema = new Schema({
     status: {
         type: String,
         required: true
-    },  
+    },
+    date: {
+        type: Date
+    }
 
 });
 
