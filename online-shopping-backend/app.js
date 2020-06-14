@@ -6,9 +6,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
-const userRoutes = require('./routes/users.routes');
-const authRoutes = require('./routes/auth.routes');
-const productRoutes = require('./routes/products.routes');
+const userRoutes = require('./routes/user');
+const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/product');
 const authMiddleware = require('./middleware/authJwt');
 const config = require('./util/config');
 const cartRoutes = require('./routes/cart');
@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
 });
 app.use(authRoutes);
 app.use(authMiddleware.verifyToken);
-app.use(userRoutes);
-app.use(productRoutes);
-app.use(cartRoutes);
+app.use('/users/', userRoutes);
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
 
