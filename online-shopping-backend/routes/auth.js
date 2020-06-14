@@ -35,12 +35,9 @@ router.get('/signout', async(req, res, next) => {
 });
 
 router.post('/signup', async(req, res, next) => {
-    const pass = req.body.password;
     User.addUser(req.body)
         .then(result => {
-            const signinReqBody = {username: result.username, password: pass};
-            req.body = signinReqBody;
-            this.signin(req, res, next);
+            res.redirect(307, '/signin');
         })
         .catch(err => {
             res.status(500).send(new ApiResponse(500, 'error', err));
