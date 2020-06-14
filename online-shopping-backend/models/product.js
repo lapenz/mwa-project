@@ -14,8 +14,8 @@ const userSchema = new Schema({
         type: Number,
         required: true
     },
-    photos: {
-        type: [String],
+    imagePath: {
+        type: String,
         required: true
     },
     seller: {
