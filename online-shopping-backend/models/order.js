@@ -1,4 +1,5 @@
 const Schema = mongoose.Schema;
+const AddressSchema = require('../models/address');
 
 const Status = Object.freeze({
     PENDING: 'Pending',
@@ -22,16 +23,8 @@ const orderSchema = new Schema({
         default: Status.PENDING
     },
     cart: {type: Object, required: true},
-    billingAddress:
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Address"
-        },
-    ShippingAddress:
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Address"
-        },
+    billingAddress: AddressSchema,
+    shippingAddress: AddressSchema,
     buyer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
