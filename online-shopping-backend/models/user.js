@@ -1,8 +1,12 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const role = require('../util/role');
 const Schema = mongoose.Schema;
 
+const Roles = Object.freeze({
+    ADMIN: 'Admin',
+    SELLER: 'Seller',
+    BUYER: 'Buyer'
+});
 
 const userSchema = new Schema({
     username: {
@@ -26,14 +30,18 @@ const userSchema = new Schema({
         required: true
     },
     birthDate: Date,
-    role: String,
-    isApprovedUser: Number,
-    cart: { type: Schema.Types.ObjectId,
-        ref: 'Cart'
-    }
+    role: {
+        type: String,
+        enum : Object.values(Roles),
+        default: Roles.BUYER
+    },
+    isApprovedUser: Number
 
 });
 
+Object.assign(userSchema.statics, {
+    Roles,
+});
 
 userSchema.statics.addUser = function(user){
 

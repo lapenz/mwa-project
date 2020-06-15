@@ -58,7 +58,7 @@ class Cart {
 
     }
 
-    emptyCart(request) {
+    clear(request) {
         this.data.items = [];
         this.data.totals = 0;
         if(request.session) {

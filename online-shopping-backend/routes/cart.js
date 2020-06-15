@@ -3,7 +3,7 @@ const router = express.Router();
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 
-router.get('/add-to-cart/:id', function (req, res, next) {
+router.get('/add/:id', function (req, res, next) {
     Product.findById(req.params.id)
         .then(product => {
             Cart.addToCart(product);
@@ -23,8 +23,8 @@ router.get('/', function (req, res, next) {
     res.status(200).json(cart);
 });
 
-router.get('/empty-cart', function (req, res, next) {
-    Cart.emptyCart(req);
+router.get('/clear', function (req, res, next) {
+    Cart.clear(req);
     res.status(204).json();
 })
 

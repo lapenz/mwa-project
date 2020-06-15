@@ -1,15 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const Methods = Object.freeze({
+    DEBIT: 'Debit Card',
+    CREDIT: 'Credit Cardr',
+    PAYPAL: 'Paypal'
+});
+
 const paymentSchema = new Schema({
     
     paymentMethod:{
         type: String,
-        require: true
+        enum: Object.values(Methods),
+        required: true
     },
     amount: {
         type: Number,
-        require: true
+        required: true
     },
     status: {
         type: String,
@@ -21,5 +28,8 @@ const paymentSchema = new Schema({
 
 });
 
+Object.assign(paymentSchema.statics, {
+    Methods
+});
 
 module.exports = mongoose.model('Payment', paymentSchema);
