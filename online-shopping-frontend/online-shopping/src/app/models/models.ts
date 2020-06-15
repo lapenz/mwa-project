@@ -1,7 +1,13 @@
 import { Observable } from "rxjs";
 
+export enum Roles {
+  Admin = 'Admin',
+  Seller = 'Seller',
+  Buyer = 'Buyer'
+}
+
   export class User {
-    userName: string;
+    username: string;
     password: string;
     firstName: string;
     lastName: string;
@@ -12,20 +18,20 @@ import { Observable } from "rxjs";
   }
 
   export class loginInfo {
-    userName: string;
+    username: string;
     password: string;
   }
 
-  export class ResponseResult<T> {
-    result: T;
-    message: String;
-    status: String;
-  
+  export class ApiResponse {
+
+    status: number;
+    message: string;
+    result: any;
   }
 
   export interface IService<T> {
-    GetById(Id: number): Observable<ResponseResult<T>>;
-    Post(entity: T): Observable<ResponseResult<T>>;
-    Put(entity: T): Observable<ResponseResult<T>>;
-    Delete(Id: number): Observable<ResponseResult<T>>;
+    GetById(Id: number): Observable<ApiResponse>;
+    Post(entity: T): Observable<ApiResponse>;
+    Put(entity: T): Observable<ApiResponse>;
+    Delete(Id: number): Observable<ApiResponse>;
   }
