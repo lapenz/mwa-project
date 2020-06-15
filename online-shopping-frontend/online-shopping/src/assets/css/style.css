@@ -13027,3 +13027,10 @@ input:focus {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* input.ng-invalid {
+  background-color: pink;
+}
+input.ng-valid {
+  background-color: lightgreen;
+} */

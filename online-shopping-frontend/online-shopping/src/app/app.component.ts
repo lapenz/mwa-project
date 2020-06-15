@@ -9,19 +9,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'online-shopping';
   data: any;
-  msgs: any;
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService) {
-    // this.data = this.activatedRoute.data;
-
-    // router.events.subscribe(event => {
-
-    //   if (event instanceof NavigationError) {
-    //     this.router.navigate(["/login"]);
-    //     this.auth.destroyToken();
-    //   }
-    //   else {
-    //     this.router.navigate(["/home"]);
-    //   }
-    // });
+    this.data = this.activatedRoute.data;
   }
 }

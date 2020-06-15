@@ -47,7 +47,7 @@ userSchema.statics.addUser = function(user){
 
     const hashedPassword = bcrypt.hashSync(user.password, 8);
     user.password = hashedPassword;
-    user.isApprovedUser = user.role == role.Seller ? 0 : 1;
+    user.isApprovedUser = user.role == Roles.SELLER ? 0 : 1;
 
     return this.create(user);
 

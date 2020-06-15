@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { loginInfo, User } from '../models/models';
+import { loginInfo, User, ApiResponse } from '../models/models';
 import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService{
 
   private apiUrl = environment.apiUrl;
 
@@ -18,20 +19,36 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService ) { }
 
-  login(loginInfo: loginInfo, returnUrl: string) {
+  login(loginInfo: loginInfo) {
     let body = {
-      "username": loginInfo.userName,
+      "username": loginInfo.username,
       "password": loginInfo.password
     };
-    this.http.post<any>(this.apiUrl + 'signin', body, { responseType: 'json' }).subscribe(response => {
-      if (response.status === 200) {                    
-          this.setSession(response);
-          this.router.navigate([returnUrl]);
+    this.http.post<ApiResponse>(this.apiUrl + 'signin', body, { responseType: 'json' }).subscribe(result => {
+      if (result.status === 200) {                    
+          this.setSession(result);
+          this.router.navigate(['home']);
       }
       else {
         this.notificationService.showError('Invaild username or password!', 'Error');
       }
     });
+  }
+
+  signUp(user: User) {
+
+    this.http.post<ApiResponse>(this.apiUrl + 'signup', user)
+    .subscribe(
+      data => {
+        if(data.status == 200) {
+          this.setSession(data);
+          this.notificationService.showSuccess('Registration successful', 'Success');
+          this.router.navigate(['login']);
+        }
+      },
+      error => {
+          this.notificationService.showError(error, 'Error');
+      });
   }
 
   private setSession(authResult: any) {
