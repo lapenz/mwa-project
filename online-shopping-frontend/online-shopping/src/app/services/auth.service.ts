@@ -23,10 +23,8 @@ export class AuthService {
     let body = { "username": loginInfo.username, "password": loginInfo.password };
     this.http.post<ApiResponse>(this.apiUrl + 'signin', body, { responseType: 'json' })
     .subscribe(
-      res => {
-        
-      if (res.status === 200) {     
-          this.getLoggedInUserEvent.emit(true);               
+      res => {        
+      if (res.status === 200) {       
           this.setSession(res.result);
           this.router.navigate(['home']);
       }
@@ -35,7 +33,7 @@ export class AuthService {
       }
     },
       error => {
-          this.getLoggedInUserEvent.emit(false);
+          this.getLoggedInUserEvent.emit(null);
           this.notificationService.showError(error.error.result.err, 'Error');
       });
   }
@@ -59,7 +57,8 @@ export class AuthService {
   private setSession(authResult: any) {
     this.setLoggedInUser(authResult.user);
     localStorage.setItem('token', authResult.token);
-    localStorage.setItem('expiresIn', authResult.expiresIn)
+    localStorage.setItem('expiresIn', authResult.expiresIn);
+    this.getLoggedInUserEvent.emit(authResult.user);
   }
   ngOnDestroy() {
     document.body.className = "";
@@ -72,7 +71,7 @@ export class AuthService {
   }
 
   logout() {
-    this.getLoggedInUserEvent.emit(false);
+    this.getLoggedInUserEvent.emit(null);
     localStorage.removeItem("token");
     localStorage.removeItem("expiresIn");
     this.removeLoggedInUser();

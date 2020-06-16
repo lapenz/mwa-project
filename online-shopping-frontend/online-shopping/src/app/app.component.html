@@ -43,14 +43,31 @@
                                   </ul>
                               </div>
                               <div class="header-info-right">
-                                 <ul>                                          
-                                     <li><a [routerLink] = "'/login'">My Account </a></li>
-                                     <li><a href="product_list.html">Wish List  </a></li>
-                                     <li><a href="cart.html">Shopping</a></li>
-                                     <li><a href="cart.html">Cart</a></li>
-                                     <li><a href="checkout.html">Checkout</a></li>
-                                 </ul>
+                                 
                               </div>
+                              <div [ngSwitch]="userRole" class="header-info-right">
+                                <div *ngSwitchCase="userRoles.Seller">
+                                    <ul>                                          
+                                        <li><a [routerLink] = "'/login'">My Account</a></li>
+                                        <li><a [routerLink] = "'/product'">My Products</a></li>
+                                    </ul>
+                                </div>
+                                <div *ngSwitchCase="userRoles.Admin">
+                                    <ul>                                          
+                                        <li><a [routerLink] = "'/login'">My Account</a></li>
+                                        <li><a [routerLink] = "'/approval'">Approvals</a></li>
+                                    </ul>
+                                </div>
+                                <div *ngSwitchDefault>
+                                    <ul>                                          
+                                        <li><a [routerLink] = "'/login'">My Account</a></li>
+                                        <li><a href="product_list.html">Wish List</a></li>
+                                        <li><a href="cart.html">Shopping</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                    </ul>
+                                </div>
+                                </div>
                           </div>
                      </div>
                  </div>
