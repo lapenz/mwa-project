@@ -17,7 +17,8 @@ router.post('/signin', async(req, res, next) => {
                 const token = jwt.sign({ userId: user.id }, config.jwtKey, {
                     expiresIn: config.expiresIn
                 });
-                res.status(200).send(new ApiResponse(200, 'success', { token: token, auth: true }));
+
+                res.status(200).send(new ApiResponse(200, 'success', { token: token, auth: true, expiresIn: config.expiresIn, user: user }));
             } else {
                 res.status(401).send(new ApiResponse(401, 'error', { err: 'username or password not exist' }));
             }

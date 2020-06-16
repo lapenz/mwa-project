@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { loginInfo, User, ApiResponse } from '../models/models';
@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService{
-
+export class AuthService {
+  @Output() getLoggedInUserEvent: EventEmitter<any> = new EventEmitter();
   private apiUrl = environment.apiUrl;
 
   private httpHeaders = new HttpHeaders()
@@ -20,34 +20,39 @@ export class AuthService{
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService ) { }
 
   login(loginInfo: loginInfo) {
-    let body = {
-      "username": loginInfo.username,
-      "password": loginInfo.password
-    };
-    this.http.post<ApiResponse>(this.apiUrl + 'signin', body, { responseType: 'json' }).subscribe(result => {
-      if (result.status === 200) {                    
-          this.setSession(result);
+    let body = { "username": loginInfo.username, "password": loginInfo.password };
+    this.http.post<ApiResponse>(this.apiUrl + 'signin', body, { responseType: 'json' })
+    .subscribe(
+      res => {
+        
+      if (res.status === 200) {     
+          this.getLoggedInUserEvent.emit(true);               
+          this.setSession(res.result);
           this.router.navigate(['home']);
       }
       else {
         this.notificationService.showError('Invaild username or password!', 'Error');
       }
-    });
+    },
+      error => {
+          this.getLoggedInUserEvent.emit(false);
+          this.notificationService.showError(error.error.result.err, 'Error');
+      });
   }
 
   signUp(user: User) {
 
     this.http.post<ApiResponse>(this.apiUrl + 'signup', user)
     .subscribe(
-      data => {
-        if(data.status == 200) {
-          this.setSession(data);
+      res => {
+        if(res.status == 200) {
+          this.setSession(res.result);
           this.notificationService.showSuccess('Registration successful', 'Success');
           this.router.navigate(['login']);
         }
       },
       error => {
-          this.notificationService.showError(error, 'Error');
+          this.notificationService.showError(error.error.result.err, 'Error');
       });
   }
 
@@ -67,6 +72,7 @@ export class AuthService{
   }
 
   logout() {
+    this.getLoggedInUserEvent.emit(false);
     localStorage.removeItem("token");
     localStorage.removeItem("expiresIn");
     this.removeLoggedInUser();

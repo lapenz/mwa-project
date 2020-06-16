@@ -7,12 +7,14 @@ import { SignupComponent } from './Sign/signup/signup.component';
 import { SigninComponent } from './Sign/signin/signin.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptor } from './auth-interceptor.interceptor';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -27,7 +29,11 @@ import { HomeComponent } from './home/home.component';
     HomeComponent,
   ],
   
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+    }],
   bootstrap: [AppComponent],
   exports: [SigninComponent, SignupComponent, HomeComponent]
 })
