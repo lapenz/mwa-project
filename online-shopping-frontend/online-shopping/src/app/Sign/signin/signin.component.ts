@@ -28,7 +28,6 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit(){
-    let authenticated = false;
 
     if(this.signInForm.valid) {      
       this.authService.login(this.signInForm.value);

@@ -1,15 +1,20 @@
 const Order = require('../models/order');
+const authorize = require('../middleware/authorize');
+const Role = require('../models/user').Roles;
 
-router.get('/checkout', function (req, res, next) {
+router.get('/checkout', authorize([Role.BUYER, Role.SELLER]), getOrder);
+outer.post('/checkout', authorize(Role.BUYER), postOrder);
+
+ function getOrder (req, res, next) {
     if (!req.session.cart) {
         return res.redirect('/cart');
     }
     const cart = req.session.cart;
 
     res.status(200).json(cart);
-});
+}
 
-router.post('/checkout', function (req, res, next) {
+ function postOrder(req, res, next) {
     if (!req.session.cart) {
         return res.redirect('/cart');
     }
@@ -29,4 +34,4 @@ router.post('/checkout', function (req, res, next) {
         res.sendStatus(201);
     });
 
-});
+}

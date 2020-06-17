@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { SigninComponent } from './Sign/signin/signin.component';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './Sign/signup/signup.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ApprovalsComponent } from './admin/approvals/approvals.component';
 
 
 const routes: Routes = [
@@ -11,6 +13,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'approval', component: ApprovalsComponent },
+  
   { path: '**', redirectTo: 'home' }
 ];
 

@@ -11,6 +11,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './auth-interceptor.interceptor';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ApprovalsComponent } from './admin/approvals/approvals.component';
+import { UsersComponent } from './admin/users/users.component';
+import { ReviewsComponent } from './admin/reviews/reviews.component';
+import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 @NgModule({
   imports: [
     BrowserModule,
@@ -27,6 +32,11 @@ import { AuthInterceptor } from './auth-interceptor.interceptor';
     SignupComponent,
     SigninComponent,
     HomeComponent,
+    CheckoutComponent,
+    ApprovalsComponent,
+    UsersComponent,
+    ReviewsComponent,
+    EnumToArrayPipe,
   ],
   
   providers: [{

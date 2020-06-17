@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const ApiResponse = require('../models/api.response');
+const authorize = require('../middleware/authorize');
+const Role = require('../models/user').Roles;
 
-router.get('/', (req, res, next) => {
+router.get('/', authorize(Role.ADMIN), getAll);
+router.get('/SellerByStatus/:isApprovedUser', authorize(Role.ADMIN), getAllSellerByStatus);
+
+function getAll(req, res, next) {
     User.find()
         .then(users => {
             res.status(200).send(new ApiResponse(200, 'success', users));
@@ -11,28 +16,38 @@ router.get('/', (req, res, next) => {
         .catch(err => {
             res.status(500).send(new ApiResponse(500, 'error', err));
         });
-});
+}
 
-router.post('/', (req, res, next) => {
-    if(User.isValidAddUser(req.body)){
-        User.addUser(req.body)
-            .then(result => {
-                res.status(201).send(new ApiResponse(201, 'success', result));
-            })
-            .catch(err => {
-                res.status(500).send(new ApiResponse(500, 'error', err));
-            });
-    }
-    else{
-        res.status(409).send(new ApiResponse(409, 'Duplicate', "User Name already exists!"));
-    }
+function getAllSellerByStatus (req, res, next) {
+    User.find({$and:[{isApprovedUser: req.params.isApprovedUser},{role: "Seller"}]})
+        .then(users => {
+            res.status(200).send(new ApiResponse(200, 'success', users));
+        })
+        .catch(err => {
+            res.status(500).send(new ApiResponse(500, 'error', err));
+        });
+}
+
+router.post('/', async (req, res, next) => {
+
+    User.addUser(req.body)
+        .then(result => {
+            res.status(201).send(new ApiResponse(201, 'success', result));
+        })
+        .catch(err => {
+            // res.status(500).send(new ApiResponse(500, 'error', err));
+            res.status(409).send(new ApiResponse(409, 'Duplicate', "User Name already exists!"));
+        });
 
 });
 
 router.put('/approveUser/:id', (req, res, next) => {
-    User.findByIdAndUpdate({_id: req.params.userId}, {isApprovedUser: req.body.ApprovedUser})
+    User.findByIdAndUpdate({_id: req.params.id}, {$set:{isApprovedUser: req.body.ApprovedUser}})
         .then(result => {
             res.status(200).send(new ApiResponse(200, 'success', result));
+        })
+        .catch(err => {
+            res.status(500).send(new ApiResponse(500, 'error', err));
         });
 });
 
