@@ -6,6 +6,8 @@ import { SignupComponent } from './Sign/signup/signup.component';
 import {ListProductComponent} from './list-product/list-product.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
 import {CartComponent} from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ApprovalsComponent } from './admin/approvals/approvals.component';
 
 
 const routes: Routes = [
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'cart', component: CartComponent },
   { path: 'cart/:id', component: CartComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'approval', component: ApprovalsComponent },
   { path: '**', redirectTo: 'home' }
 ];
 

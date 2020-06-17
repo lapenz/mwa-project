@@ -7,15 +7,23 @@ import { SignupComponent } from './Sign/signup/signup.component';
 import { SigninComponent } from './Sign/signin/signin.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptor } from './auth-interceptor.interceptor';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ApprovalsComponent } from './admin/approvals/approvals.component';
+import { UsersComponent } from './admin/users/users.component';
+import { ReviewsComponent } from './admin/reviews/reviews.component';
+import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -31,8 +39,18 @@ import { CartComponent } from './cart/cart.component';
     ListProductComponent,
     ProductDetailsComponent,
     CartComponent,
+    CheckoutComponent,
+    ApprovalsComponent,
+    UsersComponent,
+    ReviewsComponent,
+    EnumToArrayPipe,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+    }],
+
   bootstrap: [AppComponent],
   exports: [SigninComponent, SignupComponent, HomeComponent]
 })

@@ -46,7 +46,11 @@
               "src/assets/js/mail-script.js",
               "src/assets/js/jquery.ajaxchimp.min.js",	
               "src/assets/js/plugins.js",
-              "src/assets/js/main.js"
+              "src/assets/js/main.js",
+              "src/assets/js/swiper.min.js",
+              "src/assets/js/mixitup.min.js",
+              "src/assets/js/jquery.counterup.min.js",
+              "src/assets/js/waypoints.min.js"
             ]
           },
           "configurations": {

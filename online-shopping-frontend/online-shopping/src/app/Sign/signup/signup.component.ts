@@ -15,9 +15,6 @@ export class SignupComponent implements OnInit {
 
   showFormValue : boolean = environment.showFormValue;
   signUpForm: FormGroup;
-  loading = false;
-  submitted = false;
-  error: string;
   userModel: User = new User();
   pattern: string = 'admin';
   userTypes: string[] = Object.values(Roles).filter(role => { return role.toLowerCase().indexOf(this.pattern.toLowerCase()) === -1; });

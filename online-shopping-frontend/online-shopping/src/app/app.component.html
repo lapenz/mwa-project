@@ -29,19 +29,30 @@
                   <li>+1 641 852 7886</li>
                 </ul>
               </div>
-              <div class="header-info-right">
-                <ul>
-                  <li><a [routerLink]="'/login'">My Account </a></li>
-                  <li><a href="product_list.html">Wish List </a></li>
-                  <li><a [routerLink]="'/products'">Shopping</a></li>
-                  <li><a [routerLink]="'/cart'">Cart</a></li>
-                  <li><a href="checkout.html">Checkout</a></li>
-                </ul>
+              <div [ngSwitch]="userRole" class="header-info-right">
+                <div *ngSwitchCase="userRoles.Seller">
+                  <ul>
+                    <li><a [routerLink] = "'/product'">My Products</a></li>
+                  </ul>
+                </div>
+                <div *ngSwitchCase="userRoles.Admin">
+                  <ul>
+                    <li><a [routerLink] = "'/approval'">Approvals</a></li>
+                  </ul>
+                </div>
+                <div *ngSwitchDefault>
+                  <ul>
+                    <li><a [routerLink]="'/shop'">Shopping</a></li>
+                    <li><a [routerLink]="'/cart'" >Cart</a></li>
+                    <li><a [routerLink] = "'/checkout'">Checkout</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="header-bottom  header-sticky">
         <div class="container-fluid">
           <div class="row align-items-center">
@@ -72,7 +83,7 @@
                     </li>
                     <li><a href="#">Pages</a>
                       <ul class="submenu">
-                        <li><a href="login.html">Login</a></li>
+                        <li><a [routerLink] = "'/login'">Login</a></li>
                         <li><a href="cart.html">Card</a></li>
                         <li><a href="elements.html">Element</a></li>
                         <li><a href="about.html">About</a></li>
@@ -104,9 +115,15 @@
                 <li>
                   <div class="shopping-card" quantity="3">
                     <a [routerLink]="'/cart'"><i class="fas fa-shopping-cart"></i></a>
+
                   </div>
                 </li>
-                <li class="d-none d-lg-block"><a [routerLink]="'/login'" class="btn header-btn">Sign in</a></li>
+                <li class="d-none d-lg-block" *ngIf="!isAuthenticated">
+                  <a [routerLink] = "'/login'" class="btn header-btn" >Sign in</a>
+                </li>
+                <li class="d-none d-lg-block" *ngIf="isAuthenticated">
+                  <a href="" (click) = "onLogOut()" class="btn header-btn" >Sign out</a>
+                </li>
               </ul>
             </div>
             <!-- Mobile Menu -->

@@ -25,7 +25,9 @@ const productSchema = new Schema({
     
     reviews: [{
             description: { type: String , required: true},
-            rating: { type: Number, required: true }
+            rating: { type: Number, required: true },
+            buyer: { type: String , required: true},
+            approved: { type: Number , required: true}
             }]
             
 

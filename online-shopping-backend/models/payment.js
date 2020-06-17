@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Methods = Object.freeze({
-    DEBIT: 'Debit Card',
-    CREDIT: 'Credit Cardr',
-    PAYPAL: 'Paypal'
+    DEBIT: 'DebitCard',
+    CREDIT: 'CreditCard',
+    PAYPAL: 'PayPal'
 });
 
 const paymentSchema = new Schema({

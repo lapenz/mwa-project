@@ -39,7 +39,7 @@ app.use(session({
 }));
 
 app.use(authRoutes);
-// app.use(authMiddleware.verifyToken);
+app.use(authMiddleware.verifyToken);
 app.use('/users/', userRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
