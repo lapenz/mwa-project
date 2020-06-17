@@ -22,7 +22,12 @@ mongoose.connect(config.dbUrl + config.dbName, {useNewUrlParser: true, useUnifie
         });
     }).catch(err => console.error(err));
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:4200',
+    credentials: true,
+
+}
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
@@ -34,7 +39,7 @@ app.use(session({
 }));
 
 app.use(authRoutes);
-app.use(authMiddleware.verifyToken);
+// app.use(authMiddleware.verifyToken);
 app.use('/users/', userRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);

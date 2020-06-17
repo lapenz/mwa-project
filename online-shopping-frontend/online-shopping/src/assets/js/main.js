@@ -1,6 +1,6 @@
 (function ($)
   { "use strict"
-  
+
 /* 1. Proloder */
     $(window).on('load', function () {
       $('#preloader-active').delay(450).fadeOut('slow');
@@ -217,8 +217,8 @@
     new WOW().init();
 
 /* 11. Datepicker */
-    
-// 11. ---- Mailchimp js --------//  
+
+// 11. ---- Mailchimp js --------//
     function mailChimp() {
       $('#mc_embed_signup').find('form').ajaxChimp();
     }
@@ -264,7 +264,6 @@
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
       nav: true,
-      dots: false,
       navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
       responsive: {
         0: {
@@ -291,7 +290,6 @@
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
       nav: true,
-      dots: false,
       navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
       responsive: {
         0: {
@@ -408,16 +406,16 @@
           $('#search_input_box').slideUp(500);
         });
 
-        //------- Mailchimp js --------//  
+        //------- Mailchimp js --------//
         function mailChimp() {
           $('#mc_embed_signup').find('form').ajaxChimp();
         }
         mailChimp();
 
-        //------- makeTimer js --------//  
+        //------- makeTimer js --------//
         function makeTimer() {
 
-          //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");	
+          //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");
           var endTime = new Date("27 Sep 2019 12:56:00 GMT+01:00");
           endTime = (Date.parse(endTime) / 1000);
 
@@ -449,7 +447,7 @@
         }
       // click counter js
       (function() {
-      
+
         window.inputNumber = function(el) {
 
           var min = el.attr('min') || false;
@@ -495,7 +493,7 @@
         setInterval(function () {
           makeTimer();
         }, 1000);
-      
+
 
       $('.select_option_dropdown').hide();
       $(".select_option_list").click(function () {
@@ -511,7 +509,7 @@
 
       $('.controls').on('click', function(){
         $(this).addClass('active').siblings().removeClass('active');
-      }); 
+      });
 
 
 /* ----------------- Other Inner page End ------------------ */

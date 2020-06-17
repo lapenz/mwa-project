@@ -8,7 +8,7 @@ router.get('/add/:id', function (req, res, next) {
         .then(product => {
             Cart.addToCart(product);
             Cart.saveCart(req);
-            res.status(204).json();
+            res.sendStatus(204);
         })
         .catch(err => console.log(err));
 });

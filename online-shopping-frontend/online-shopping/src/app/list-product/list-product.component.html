@@ -1,0 +1,53 @@
+<section class="latest-product-area padding-bottom">
+  <div class="container">
+    <div class="row product-btn d-flex justify-content-end align-items-end">
+      <!-- Section Tittle -->
+      <div class="col-xl-4 col-lg-5 col-md-5">
+        <div class="section-tittle mb-30">
+          <h2>Products</h2>
+        </div>
+      </div>
+
+    </div>
+    <!-- Nav Card -->
+    <div class="tab-content" id="nav-tabContent">
+      <!-- card one -->
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="row">
+          <div *ngFor="let product of products" class="col-xl-4 col-lg-4 col-md-6">
+
+            <div class="single-product mb-60">
+              <div class="product-img">
+                <img src="{{product.imagePath}}" alt="">
+                <div class="new-product">
+                  <span>New</span>
+                </div>
+              </div>
+              <div class="product-caption">
+                <div class="product-ratting">
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star low-star"></i>
+                  <i class="far fa-star low-star"></i>
+                </div>
+                <h4><a [routerLink]="['/products', product._id]">{{product.title}}</a></h4>
+                <div class="price">
+                  <ul>
+                    <li>{{product.price}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <!-- End Nav Card -->
+  </div>
+</section>

@@ -6,8 +6,8 @@
 	  Support:
 	  Description:
 	  Version:
-	  
-------------------------------------------------- 
+
+-------------------------------------------------
 */
 /* CSS Index
 -------------------------------------------------
@@ -3709,7 +3709,7 @@ input:focus {
 /* line 224, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_headerMenu.scss */
 .header-bottom .header-right .shopping-card::before {
   position: absolute;
-  content: "02";
+  content: attr(quantity);
   width: 25px;
   height: 25px;
   background: #00b1ff;
@@ -4761,7 +4761,7 @@ input:focus {
 /* line 151, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_best-product.scss */
 .best-collection-area .best-right-cap .best-single {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 /* line 154, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_best-product.scss */
@@ -7067,7 +7067,7 @@ input:focus {
   align-items: center;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 /* line 13, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_extend.scss */
@@ -10885,6 +10885,7 @@ input:focus {
   border: 1px solid #eeeeee;
   border-radius: 3px;
   max-width: 150px;
+  max-height: 150px;
 }
 
 /* line 1136, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_product.scss */
