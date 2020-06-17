@@ -54,11 +54,25 @@ export enum ApprovalType {
   Seller = 1,
   Review = 2,
 }
+export enum OrderStatus{
+  PENDING = 'Pending',
+  SHIPPED = 'Shipped',
+  DELIVERED = 'Delivered',
+  CANCELED = 'Canceled'
+}
+
+export enum PaymentMethod{
+  DEBIT = 'DebitCard',
+  CREDIT = 'CreditCard',
+  PAYPAL = 'PayPal'
+}
+
 
 export class Order {
   _id: String;
-  totalPrice: Number;
-  shippingPrice: Number;
+  totalPrice: number;
+  subTotalPrice: number;
+  shippingPrice: number = 50;
   purchaseDate: Date;
   status: String;
   cart: Cart;
@@ -67,15 +81,30 @@ export class Order {
   buyer: User;
   coupon: Coupon;
   payment: Payment;
+
+  constructor() {
+    this.cart = new Cart();
+    this.billingAddress = new Address();
+    this.shippingAddress = new Address();
+    this.buyer = new User();
+    this.coupon = new Coupon();
+    this.payment = new Payment();
+  }
 }
 
 export class Review {
   description: String;
-  rating:Number;
+  rating:number;
 }
 
 export class Address {
-
+  firstName: string;
+  lastName: string;
+  email:string;
+  phone:string;
+  city:string;
+  zipCode:string;
+  streetAddress:string;
 }
 
 export class Coupon {
@@ -83,5 +112,8 @@ export class Coupon {
 }
 
 export class Payment {
-
+  paymentMethod: string;
+  amount: number;
+  status: string;
+  date: Date;
 }

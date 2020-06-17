@@ -1,3 +1,5 @@
+
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const AddressSchema = require('../models/address');
 
@@ -11,7 +13,18 @@ const Status = Object.freeze({
 const orderSchema = new Schema({
     totalPrice: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
+    },
+    subTotalPrice: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0
     },
     purchaseDate: {
         type: Date,

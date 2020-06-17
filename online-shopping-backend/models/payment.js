@@ -20,7 +20,8 @@ const paymentSchema = new Schema({
     },
     status: {
         type: String,
-        required: true
+        required: true,
+        default: 'Done'
     },
     date: {
         type: Date

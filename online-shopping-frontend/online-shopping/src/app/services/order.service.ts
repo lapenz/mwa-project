@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class OrderService implements IService<Order>{
-  private apiUrl = environment.apiUrl + '/checkout';
+  private apiUrl = environment.apiUrl + 'checkout';
 
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) { }
 

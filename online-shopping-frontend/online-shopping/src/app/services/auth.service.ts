@@ -13,10 +13,6 @@ export class AuthService {
   @Output() getLoggedInUserEvent: EventEmitter<any> = new EventEmitter();
   private apiUrl = environment.apiUrl;
 
-  private httpHeaders = new HttpHeaders()
-    .set('Authorization', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
-
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService ) { }
 
   login(loginInfo: LoginInfo) {
