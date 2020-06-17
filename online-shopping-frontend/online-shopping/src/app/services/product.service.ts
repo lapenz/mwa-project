@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Product, ApiResponse} from '../models/models';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Product} from '../models/models';
 import {Router} from '@angular/router';
-import {NotificationService} from './notification.service';
 import {catchError, retry, tap} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 
@@ -12,25 +11,23 @@ import {throwError} from 'rxjs';
 })
 export class ProductService {
 
-  private apiUrl = environment.apiUrl;
-
-  private httpHeaders = new HttpHeaders()
-    .set('Authorization', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
-
-  constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) {
+  private apiUrl = environment.apiUrl + 'products/';
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   public findAll() {
-    return this.http.get<Product[]>(this.apiUrl + 'products', {observe: 'response'})
-      .pipe(retry(3), catchError(this.handleError));
+    return this.http.get<Product[]>(this.apiUrl, {observe: 'response'})
+      .pipe(catchError(this.handleError));
+  }
 
+  public findAllBySeller() {
+    return this.http.get<Product[]>(this.apiUrl + 'seller', {observe: 'response'})
+      .pipe(catchError(this.handleError));
   }
 
   public findById(id: string) {
-    return this.http.get<Product>(this.apiUrl + 'products/' + id, {observe: 'response'})
-      .pipe(retry(3), catchError(this.handleError));
-
+    return this.http.get<Product>(this.apiUrl + id, {observe: 'response'})
+      .pipe( catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -43,7 +40,6 @@ export class ProductService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
-      alert(error.error);
     }
     // return an observable with a user-facing error message
     return throwError(

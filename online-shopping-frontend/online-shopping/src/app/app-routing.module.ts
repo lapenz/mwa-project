@@ -8,6 +8,7 @@ import {ProductDetailsComponent} from './product-details/product-details.compone
 import {CartComponent} from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ApprovalsComponent } from './admin/approvals/approvals.component';
+import {SellerProductsComponent} from './seller-products/seller-products.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'cart/:id', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'approval', component: ApprovalsComponent },
+  { path: 'seller/products', component: SellerProductsComponent },
   { path: '**', redirectTo: 'home' }
 ];
 
