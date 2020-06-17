@@ -34,7 +34,7 @@ export class ReviewsComponent implements OnInit {
       this.getReviews();
     },
     err => {
-      this.notificationService.showError(err.error.result.err, 'Error');
+      this.notificationService.showError(err.message, 'Error');
      });
   }
 

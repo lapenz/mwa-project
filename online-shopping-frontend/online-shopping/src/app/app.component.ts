@@ -56,8 +56,14 @@ export class AppComponent{
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService) {
     this.data = this.activatedRoute.data;
-    if(auth.getLoggedInUserEvent)
+    if(auth.getLoggedInUserEvent){
       auth.getLoggedInUserEvent.subscribe(user => this.changeAuthenticatedUser(user));
+    }
+      
+    else{
+      const user = auth.getLoggedInUser();
+      this.changeAuthenticatedUser(user);
+    }
   }
 
   private changeAuthenticatedUser(user?: User){

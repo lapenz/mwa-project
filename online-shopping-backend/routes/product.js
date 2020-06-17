@@ -10,16 +10,15 @@ router.get('/seller', authorize(Role.SELLER), getBySeller);
 router.get('/reviews', authorize(Role.ADMIN), getAllReviews);
 router.post('/', authorize(Role.SELLER), save);
 router.get('/:id', authorize(Role.SELLER), getById);
-router.put('/:id',authorize(Role.SELLER), update);
 router.put('/approve-review', authorize(Role.ADMIN), approveReview);
+router.put('/:id',authorize(Role.SELLER), update);
+
 router.delete('/:id', authorize(Role.SELLER), deleteById);
 
 
 
 function getAllReviews(req, res, next) {
-    // Product.find({$and:[{'reviews.approved': 0},{'reviews.buyer': { $exists: true}}]},
-    //              {title: 1, 'reviews.description': 1, 'reviews.rating': 1, 'reviews.buyer': 1, 'reviews.approved': 1})
-    Product.aggregate({$and:[{'reviews.approved': 0},{'reviews.buyer': { $exists: true}}]},
+    Product.find({$and:[{'reviews.approved': 0},{'reviews.buyer': { $exists: true}}]},
                  {title: 1, 'reviews.description': 1, 'reviews.rating': 1, 'reviews.buyer': 1, 'reviews.approved': 1})
         .then(users => {
             res.status(200).send(new ApiResponse(200, 'success', users));
@@ -30,9 +29,9 @@ function getAllReviews(req, res, next) {
 }
 
 function approveReview(req, res, next) {
-    Product.findOneAndUpdate(
-        {$and:[{_id: req.body.prodctId},{'reviews.buyer': req.body.userId}]}, 
-        {$set:{'reviews.approved': 1}})
+    Product.updateOne(
+        {_id: req.body.prodctId, 'reviews.buyer': req.body.userId}, 
+        {$set:{'reviews.$.approved': 1}})
         .then(result => {
             res.status(200).send(new ApiResponse(200, 'success', result));
         })

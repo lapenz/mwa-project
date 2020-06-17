@@ -42,11 +42,18 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td *ngIf="review.approved == 1">
                                             <div class="media">
                                                 <div class="media-body">
-                                                    <button class="btn btn-success btn-xs"
-                                                        (click)="approveReview(product, review)">Approve</button>
+                                                    <p>Approved</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td *ngIf="review.approved == 0">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <button class="btn btn-success btn-xs" (click)="approveReview(product, review)"
+                                                     >Approve</button>
                                                 </div>
                                             </div>
                                         </td>

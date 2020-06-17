@@ -18,12 +18,20 @@ export class CartComponent implements OnInit {
     if (id){
       this.cartService.addOnCart(id).subscribe((res: HttpResponse<any>) => {
         console.log(res);
+        this.getCart();
       });
+    }else{
+      this.getCart();
     }
-    this.cartService.getCart().subscribe((res: HttpResponse<Cart>) => {
-      console.log(res);
-      this.cart = res.body;
-    });
+    
   }
+
+getCart(){
+  this.cartService.getCart().subscribe((res: HttpResponse<Cart>) => {
+    console.log(res);
+    this.cart = res.body;
+  });
+}
+
 
 }
