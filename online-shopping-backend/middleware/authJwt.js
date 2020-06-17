@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 exports.verifyToken = (req, res, next) => {
     // console.log(req.headers);
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers['Authorization'];
     if (!authHeader) {
         return res.status(403).send(new ApiResponse(403, 'error', { err: 'No Token Provided!' }));
     }

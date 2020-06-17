@@ -1,9 +1,11 @@
+const express = require('express');
+const router = express.Router();
 const Order = require('../models/order');
 const authorize = require('../middleware/authorize');
 const Role = require('../models/user').Roles;
 
-router.get('/checkout', authorize([Role.BUYER, Role.SELLER]), getOrder);
-outer.post('/checkout', authorize(Role.BUYER), postOrder);
+router.get('/', authorize([Role.BUYER, Role.SELLER]), getOrder);
+router.post('/', authorize(Role.BUYER), postOrder);
 
  function getOrder (req, res, next) {
     if (!req.session.cart) {
@@ -35,3 +37,5 @@ outer.post('/checkout', authorize(Role.BUYER), postOrder);
     });
 
 }
+
+module.exports = router;

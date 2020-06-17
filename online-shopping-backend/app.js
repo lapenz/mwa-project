@@ -12,6 +12,7 @@ const productRoutes = require('./routes/product');
 const authMiddleware = require('./middleware/authJwt');
 const config = require('./util/config');
 const cartRoutes = require('./routes/cart');
+const orderRoutes = require('./routes/order');
 
 const app = express();
 
@@ -39,8 +40,9 @@ app.use(session({
 }));
 
 app.use(authRoutes);
-app.use(authMiddleware.verifyToken);
+//app.use(authMiddleware.verifyToken);
 app.use('/users/', userRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
+app.use('/checkout', orderRoutes);
 
