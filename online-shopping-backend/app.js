@@ -5,11 +5,11 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const errorHandler = require('./middleware/errorHandler');
 
 const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/product');
-const authMiddleware = require('./middleware/authJwt');
 const config = require('./util/config');
 const cartRoutes = require('./routes/cart');
 
@@ -39,8 +39,8 @@ app.use(session({
 }));
 
 app.use(authRoutes);
-app.use(authMiddleware.verifyToken);
 app.use('/users/', userRoutes);
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 
+app.use(errorHandler);

@@ -9,7 +9,7 @@ router.get('/', getAll);
 router.get('/seller', authorize(Role.SELLER), getBySeller);
 router.get('/reviews', authorize(Role.ADMIN), getAllReviews);
 router.post('/', authorize(Role.SELLER), save);
-router.get('/:id', authorize(Role.SELLER), getById);
+router.get('/:id', getById);
 router.put('/approve-review', authorize(Role.ADMIN), approveReview);
 router.put('/:id',authorize(Role.SELLER), update);
 
@@ -51,7 +51,7 @@ function getBySeller(req, res, next) {
     Product.find({seller: req.userId}, function (err, products) {
         if(err) res.sendStatus(404);
         res.status(200).json(products);
-    }).populate("seller");
+    });
 }
 
 function save(req, res, next) {
