@@ -9,6 +9,8 @@ import {CartComponent} from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ApprovalsComponent } from './admin/approvals/approvals.component';
 import {SellerProductsComponent} from './seller-products/seller-products.component';
+import {CreateProductComponent} from './product/create/create-product.component';
+import {UpdateProductComponent} from './product/update/update-product.component';
 
 
 const routes: Routes = [
@@ -19,8 +21,10 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'products', component: ListProductComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'seller/products/create', component: CreateProductComponent },
+  { path: 'seller/products/update/:id', component: UpdateProductComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'cart/:id', component: CartComponent },
+  { path: 'cart/add/:id', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'approval', component: ApprovalsComponent },
   { path: 'seller/products', component: SellerProductsComponent },

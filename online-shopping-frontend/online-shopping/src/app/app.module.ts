@@ -20,6 +20,8 @@ import { UsersComponent } from './admin/users/users.component';
 import { ReviewsComponent } from './admin/reviews/reviews.component';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 import { SellerProductsComponent } from './seller-products/seller-products.component';
+import { CreateProductComponent } from './product/create/create-product.component';
+import {UpdateProductComponent} from './product/update/update-product.component';
 
 @NgModule({
   imports: [
@@ -46,6 +48,8 @@ import { SellerProductsComponent } from './seller-products/seller-products.compo
     ReviewsComponent,
     EnumToArrayPipe,
     SellerProductsComponent,
+    CreateProductComponent,
+    UpdateProductComponent,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

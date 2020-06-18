@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
 import {Cart} from '../models/models';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../services/cart.service';
 
 @Component({
@@ -12,7 +12,7 @@ import {CartService} from '../services/cart.service';
 export class CartComponent implements OnInit {
   cart: Cart = new Cart();
 
-  constructor(private activatedRoute: ActivatedRoute, private cartService: CartService) {
+  constructor(private activatedRoute: ActivatedRoute, public cartService: CartService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -27,6 +27,11 @@ export class CartComponent implements OnInit {
     }
 
     this.loadScripts();
+  }
+
+  clear() {
+    this.cartService.clear();
+    this.router.navigateByUrl('/cart');
   }
 
   getCart() {

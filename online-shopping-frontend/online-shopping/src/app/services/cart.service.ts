@@ -12,19 +12,25 @@ import {throwError} from 'rxjs';
 })
 export class CartService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl + 'cart';
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) {
   }
 
   public getCart() {
-    return this.http.get<Cart>(this.apiUrl + 'cart', {observe: 'response', withCredentials: true})
+    return this.http.get<Cart>(this.apiUrl, {observe: 'response', withCredentials: true})
       .pipe(retry(3), catchError(this.handleError));
 
   }
 
   public addOnCart(id: string) {
-    return this.http.get<any>(this.apiUrl + 'cart/add/' + id, {observe: 'response', withCredentials: true})
+    return this.http.get<any>(this.apiUrl + '/add/' + id, {observe: 'response', withCredentials: true})
       .pipe(retry(3), catchError(this.handleError));
+
+  }
+
+  public clear() {
+    return this.http.get<Cart>(this.apiUrl + '/clear', {observe: 'response', withCredentials: true})
+      .pipe(retry(3), catchError(this.handleError)).subscribe();
 
   }
 

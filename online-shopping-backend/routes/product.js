@@ -6,13 +6,12 @@ const Role = require('../models/user').Roles;
 const router = express.Router();
 
 router.get('/', getAll);
+router.post('/', authorize(Role.SELLER), save);
 router.get('/seller', authorize(Role.SELLER), getBySeller);
 router.get('/reviews', authorize(Role.ADMIN), getAllReviews);
-router.post('/', authorize(Role.SELLER), save);
-router.get('/:id', getById);
 router.put('/approve-review', authorize(Role.ADMIN), approveReview);
+router.get('/:id', getById);
 router.put('/:id',authorize(Role.SELLER), update);
-
 router.delete('/:id', authorize(Role.SELLER), deleteById);
 
 
@@ -48,7 +47,7 @@ function getAll(req, res, next) {
 }
 
 function getBySeller(req, res, next) {
-    Product.find({seller: req.userId}, function (err, products) {
+    Product.find({seller: req.user.userId}, function (err, products) {
         if(err) res.sendStatus(404);
         res.status(200).json(products);
     });
@@ -56,17 +55,17 @@ function getBySeller(req, res, next) {
 
 function save(req, res, next) {
     let product = new Product(req.body);
-    product.seller = req.userId;
+    product.seller = req.user.userId;
 
     product.save( function (err) {
-        if (err) res.status(500).json('Saving error');
-        res.sendStatus(201)
+        if (err) return res.status(400).json({message: 'Saving error'});
+        res.status(201).json({message: 'Created'});
     });
 }
 
 function getById(req, res, next) {
     Product.findById(req.params.id, function (err, product) {
-        if(err) res.sendStatus(404);
+        if(err) return res.sendStatus(404);
         if(!product) res.sendStatus(404);
         res.status(200).json(product);
     });
