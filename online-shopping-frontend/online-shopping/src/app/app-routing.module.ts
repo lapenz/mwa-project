@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'seller/products/create', component: CreateProductComponent },
   { path: 'seller/products/update/:id', component: UpdateProductComponent },
   { path: 'cart', component: CartComponent },
-  { path: 'cart/:id', component: CartComponent },
+  { path: 'cart/add/:id', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'approval', component: ApprovalsComponent },
   { path: 'seller/products', component: SellerProductsComponent },

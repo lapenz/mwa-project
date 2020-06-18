@@ -1,7 +1,9 @@
 import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router, NavigationEnd, NavigationError} from '@angular/router';
 import {AuthService} from './services/auth.service';
-import {Roles, User} from './models/models';
+import {Cart, Roles, User} from './models/models';
+import {HttpResponse} from '@angular/common/http';
+import {CartService} from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +18,18 @@ export class AppComponent {
   userRoles = Roles;
   userRole: Roles = Roles.Buyer;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService, private cartService: CartService) {
     this.data = this.activatedRoute.data;
-    if (auth.getLoggedInUserEvent) {
-      auth.getLoggedInUserEvent.subscribe(user => this.changeAuthenticatedUser(user));
-    } else {
+    if (auth.getLoggedInUser()) {
       const user = auth.getLoggedInUser();
       this.changeAuthenticatedUser(user);
+    } else {
+      auth.getLoggedInUserEvent.subscribe(user => this.changeAuthenticatedUser(user));
     }
+
+    this.cartService.getCart().subscribe((res: HttpResponse<Cart>) => {
+      this.cartQuantity = res.body.items.length;
+    });
 
     this.loadScripts();
   }
