@@ -22,6 +22,9 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 import { SellerProductsComponent } from './seller-products/seller-products.component';
 import { CreateProductComponent } from './product/create/create-product.component';
 import {UpdateProductComponent} from './product/update/update-product.component';
+import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
+import { OrderViewComponent } from './order-view/order-view.component';
+import {BuyerOrdersComponent} from './buyer-orders/buyer-orders.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
@@ -51,7 +54,10 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     SellerProductsComponent,
     CreateProductComponent,
     UpdateProductComponent,
-    ConfirmationComponent,
+    SellerOrdersComponent,
+    BuyerOrdersComponent,
+    OrderViewComponent,
+    ConfirmationComponent
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

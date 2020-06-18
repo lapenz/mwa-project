@@ -26,9 +26,9 @@ export class CheckoutComponent implements OnInit {
   order: Order = new Order();
   orders: Order[] = new Array();
 
-  constructor(private fb: FormBuilder, 
-    private authService: AuthService, 
-    private orderService: OrderService, 
+  constructor(private fb: FormBuilder,
+    private authService: AuthService,
+    private orderService: OrderService,
     private notificationService: NotificationService,
     private cartService: CartService,
     private router: Router
@@ -45,7 +45,7 @@ export class CheckoutComponent implements OnInit {
     this.checkLoggedInUser(this.userModel);
 
     this.createForms();
-    
+
     this.cartService.getCart().subscribe((res: HttpResponse<Cart>) => {
       this.setOrderCartInfo(res.body);
     }, err => {
@@ -55,13 +55,13 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit(){
 
-    if(this.signInForm.valid) {      
+    if(this.signInForm.valid) {
       this.authService.login(this.signInForm.value);
     }
   }
 
   onOrderSubmit(){
-    
+
     this.setOrderInfo();
     this.devideOrderPerSeller();
     this.orderService.Post(this.orders).subscribe(res=> {
@@ -76,7 +76,7 @@ export class CheckoutComponent implements OnInit {
     
   }
 
-  checkLoggedInUser(user: User){    
+  checkLoggedInUser(user: User){
     if(user){
       this.userLoggedIn = true;
     }
@@ -90,7 +90,7 @@ export class CheckoutComponent implements OnInit {
     });
     this.order.shippingPrice = this.order.subTotalPrice * 0.1;
     this.order.totalPrice = this.order.subTotalPrice + this.order.shippingPrice;
-    
+
   }
 
   setOrderInfo(){
@@ -115,7 +115,7 @@ export class CheckoutComponent implements OnInit {
     this.order.coupon.description = '';
     //this.order.coupon.percentage = 0.1;
     this.order.coupon.expiryDate = new Date();
-    
+
 
     this.order.status = OrderStatus.PENDING;
     this.order.purchaseDate = new Date();
@@ -127,12 +127,16 @@ export class CheckoutComponent implements OnInit {
     const result = this.groupBy(items, 'seller');
     let sellers = Object.keys(result);
     let newOrder = new Order();
-    
+
 
     sellers.map( seller => {
       newOrder = {...this.order};
       newOrder.coupon.seller = seller;
-      
+
+      const orderSeller = new User();
+      orderSeller._id = seller;
+      newOrder.seller = orderSeller;
+
       let prodArray = items.filter(prod=> {        
         newOrder.subTotalPrice += prod.price * prod.qty;        
         return prod.seller == seller;
@@ -145,7 +149,7 @@ export class CheckoutComponent implements OnInit {
       console.log(newOrder);
       this.orders.push(newOrder);
       console.log(prodArray);
-      
+
       console.log(this.orders);
     });
   }
@@ -156,7 +160,7 @@ export class CheckoutComponent implements OnInit {
         currentValue
       );
       return result;
-    }, {}); 
+    }, {});
   };
 
   createForms(){
@@ -172,7 +176,7 @@ export class CheckoutComponent implements OnInit {
       phoneNumber:['', Validators.required],
       streetaddress: ['', Validators.required],
       email: ['', [Validators.required, EmailValidators.normal]],
-      city: ['', Validators.required],      
+      city: ['', Validators.required],
       zip:['', Validators.required],
       message:[''],
       createAnAccount:[''],
@@ -182,6 +186,6 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  
+
 
 }

@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class OrderService implements IService<Order>{
-  private apiUrl = environment.apiUrl + 'checkout';
+  private apiUrl = environment.apiUrl + 'checkout/';
 
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService) { }
 
@@ -38,8 +38,8 @@ export class OrderService implements IService<Order>{
       })
     );
   }
-  Put(entity: Order): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.apiUrl + entity._id, entity)
+  Put(id, entity): Observable<Order> {
+    return this.http.put<Order>(this.apiUrl + id, entity)
     .pipe(
       catchError(err => {
         console.log('Handling error locally and rethrowing it...', err);
@@ -55,5 +55,25 @@ export class OrderService implements IService<Order>{
         return throwError(err);
       })
     );
+  }
+
+  getSellerOrders() {
+    return this.http.get<Order[]>(this.apiUrl + 'seller', {observe: 'response'})
+      .pipe(
+        catchError(err => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(err);
+        })
+      );
+  }
+
+  getBuyerOrders() {
+    return this.http.get<Order[]>(this.apiUrl + 'buyer', {observe: 'response'})
+      .pipe(
+        catchError(err => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(err);
+        })
+      );
   }
 }

@@ -51,7 +51,7 @@ export class Cart {
 export interface IService<T> {
   GetById(id: String): Observable<ApiResponse>;
   Post(entity: T): Observable<ApiResponse>;
-  Put(entity: T): Observable<ApiResponse>;
+  Put(id, entity: T): Observable<T>;
   Delete(id: String): Observable<ApiResponse>;
 }
 
@@ -86,6 +86,7 @@ export class Order {
   buyer: User;
   coupon: Coupon;
   payment: Payment;
+  seller: User;
 
   constructor() {
     this.products = new Array();

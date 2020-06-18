@@ -30,8 +30,9 @@ export class CartComponent implements OnInit {
   }
 
   clear() {
-    this.cartService.clear();
-    this.router.navigateByUrl('/cart');
+    this.cartService.clear().subscribe(res => {
+      this.router.navigateByUrl('/cart');
+    });
   }
 
   getCart() {
