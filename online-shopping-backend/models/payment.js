@@ -33,4 +33,4 @@ Object.assign(paymentSchema.statics, {
     Methods
 });
 
-module.exports = mongoose.model('Payment', paymentSchema);
+module.exports = paymentSchema;

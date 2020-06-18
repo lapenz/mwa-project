@@ -3,12 +3,10 @@ const Schema = mongoose.Schema;
 
 const addressSchema = new Schema({
     firstName: {
-        type: String,
-        required: true
+        type: String
     },
     lastName: {
-        type: String,
-        required: true
+        type: String
     },
     email:{
         type: String,
@@ -27,8 +25,7 @@ const addressSchema = new Schema({
         required: true
     },
     streetAddress:{
-        type: String,
-        required: true
+        type: String
     }
 
 });

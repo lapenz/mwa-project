@@ -57,6 +57,7 @@
           </div>
         </form>
       </div>
+      <form class="row contact_form" [formGroup]="orderForm" (ngSubmit)="onOrderSubmit()">
       <div class="cupon_area">
         <div class="check_title">
           <h2>
@@ -64,12 +65,12 @@
             <a href="#">Click here to enter your code</a>
           </h2>
         </div>
-        <input type="text" placeholder="Enter coupon code" />
+        <input type="text" placeholder="Enter coupon code" formControlName="couponCode" name="couponCode" />
         <a class="tp_btn" href="#">Apply Coupon</a>
       </div>
       
       <div class="billing_details">
-        <form class="row contact_form" [formGroup]="orderForm" (ngSubmit)="onOrderSubmit()">
+        
         <div class="row">
           <div class="col-lg-6">
             <h3>Billing Details</h3>
@@ -210,12 +211,13 @@
             </div>
           </div>
         </div>
-      </form>
+      
       <p *ngIf="showFormValue">
         form value: {{ orderForm.value | json }} <br>
         form valid: {{ orderForm.valid }}
      </p>
-      </div>    
+      </div>  
+    </form>  
     </div>
   </section>
   <!--================End Checkout Area =================-->

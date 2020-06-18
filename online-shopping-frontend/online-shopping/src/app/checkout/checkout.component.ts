@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User, Order, Cart, OrderStatus, PaymentMethod } from '../models/models';
+import { User, Order, Cart, OrderStatus, PaymentMethod, Product } from '../models/models';
 import { AuthService } from '../services/auth.service';
 import { EmailValidators, CreditCardValidators } from 'ngx-validators';
 import { OrderService } from '../services/order.service';
@@ -23,7 +23,8 @@ export class CheckoutComponent implements OnInit {
   userLoggedIn: boolean = false;
   totalPrice: Number = 0;
   order: Order = new Order();
-  
+  orders: Order[] = new Array();
+
   constructor(private fb: FormBuilder, 
     private authService: AuthService, 
     private orderService: OrderService, 
@@ -37,7 +38,7 @@ export class CheckoutComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    this.orders = new Array();
     this.userModel = this.authService.getLoggedInUser();
     this.checkLoggedInUser(this.userModel);
 
@@ -60,12 +61,12 @@ export class CheckoutComponent implements OnInit {
   onOrderSubmit(){
     
     this.setOrderInfo();
-
-    this.orderService.Post(this.order).subscribe(res=> {
+    this.devideOrderPerSeller();
+    this.orderService.Post(this.orders).subscribe(res=> {
       this.notificationService.showSuccess("Your payment has been successfully issued", 'Success');
     }, err => {
       this.notificationService.showError(err, 'Error');
-    })
+    });
   }
 
   checkLoggedInUser(user: User){    
@@ -80,18 +81,20 @@ export class CheckoutComponent implements OnInit {
     {
       return a + b;
     });
+    this.order.shippingPrice = this.order.subTotalPrice * 0.1;
     this.order.totalPrice = this.order.subTotalPrice + this.order.shippingPrice;
+    
   }
 
   setOrderInfo(){
     const form = this.orderForm.value;
     this.order.billingAddress.firstName = form.firstName;
     this.order.billingAddress.lastName = form.lastName;
-    this.order.billingAddress.phone = form.phone;
+    this.order.billingAddress.phone = form.phoneNumber;
     this.order.billingAddress.city = form.city;
     this.order.billingAddress.email = form.email;
-    this.order.billingAddress.streetAddress = form.streetAddress;
-    this.order.billingAddress.zipCode = form.zipCode;
+    this.order.billingAddress.streetAddress = form.streetaddress;
+    this.order.billingAddress.zipCode = form.zip;
     this.order.shippingAddress = this.order.billingAddress;
 
     this.order.buyer = this.userModel;
@@ -101,9 +104,52 @@ export class CheckoutComponent implements OnInit {
     this.order.payment.amount = this.order.totalPrice;
     this.order.payment.paymentMethod = PaymentMethod.CREDIT;
 
+    this.order.coupon.code = form.couponCode;
+    this.order.coupon.description = '';
+    //this.order.coupon.percentage = 0.1;
+    this.order.coupon.expiryDate = new Date();
+    
+
     this.order.status = OrderStatus.PENDING;
     this.order.purchaseDate = new Date();
   }
+
+  devideOrderPerSeller(){
+
+    let items = this.order.cart.items;
+    const result = this.groupBy(items, 'seller');
+    let sellers = Object.keys(result);
+
+    sellers.forEach( seller => {
+      let newOrder = {...this.order};
+      newOrder.coupon.seller = seller;
+
+      let prodArray = items.filter(x=> {
+        return x.seller == seller
+      }); 
+      //newOrder.cart.items = []
+      newOrder.cart.items = [...prodArray];
+      //newOrder.cart.items = {...prodArray};
+      console.log(newOrder);
+      this.orders.push(newOrder);
+      //console.log('prodArray:');
+      console.log(prodArray);
+      // console.log('newOrder: ');
+      // console.log(newOrder);
+      //console.log('this.orders: ');      
+      console.log(this.orders);
+    });
+    //console.log(this.orders);
+  }
+
+  groupBy(array, key) {
+    return array.reduce((result, currentValue) => {
+      (result[currentValue[key]] = result[currentValue[key]] || []).push(
+        currentValue
+      );
+      return result;
+    }, {}); 
+  };
 
   createForms(){
     this.signInForm = this.fb.group({
@@ -123,8 +169,11 @@ export class CheckoutComponent implements OnInit {
       message:[''],
       createAnAccount:[''],
       paymentMethod:[''],
-      cardNo: ['', [Validators.required, Validators.maxLength(19), Validators.minLength(13)]]
+      cardNo: ['', [Validators.required, Validators.maxLength(19), Validators.minLength(13)]],
+      couponCode: ['']
     });
   }
+
+  
 
 }

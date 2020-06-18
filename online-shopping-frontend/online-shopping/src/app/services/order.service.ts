@@ -24,7 +24,7 @@ export class OrderService implements IService<Order>{
         })
       );
   }
-  Post(entity: Order): Observable<ApiResponse> {
+  Post(entity: any): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(this.apiUrl, entity)
     .pipe(
       catchError(err => {

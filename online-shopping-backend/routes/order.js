@@ -16,26 +16,21 @@ router.post('/', authorize(Role.BUYER), postOrder);
     res.status(200).json(cart);
 }
 
- function postOrder(req, res, next) {
-    if (!req.session.cart) {
-        return res.redirect('/cart');
-    }
-    const cart = req.session.cart;
+function postOrder(req, res, next) {
+    // if (!req.session.cart) {
+    //     return res.redirect('/cart');
+    // }
+    //const cart = req.session.cart;
+    let orders =  [];
+    orders = req.body;
 
-    const order = new Order({
-        buyer: req.userId,
-        cart: cart,
-        purchaseDate: new Date(),
-        totalPrice: cart.totals,
-        billingAddress: req.body.address,
-        shippingAddress: req.body.name,
-        // payment: charge.id
-    });
-    order.save(function (err, result) {
+    Order.insertMany(orders, function (err, result) {
         req.session.cart = null;
-        res.sendStatus(201);
+        if (err) {
+            console.log(err);
+          };
+          console.log(result);
     });
-
 }
 
 module.exports = router;

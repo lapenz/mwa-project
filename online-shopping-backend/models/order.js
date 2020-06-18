@@ -2,7 +2,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const AddressSchema = require('../models/address');
-
+const PaymentSchema = require('../models/payment');
+const CouponSchema = require('../models/coupon');
 const Status = Object.freeze({
     PENDING: 'Pending',
     SHIPPED: 'Shipped',
@@ -42,15 +43,8 @@ const orderSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    coupon: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Coupon"
-    },
-    payment:
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Payment"
-        },
+    coupon: CouponSchema,
+    payment: PaymentSchema
 
 });
 

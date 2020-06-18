@@ -34,7 +34,8 @@ class Cart {
                 title: product.title,
                 price: product.price,
                 qty: qty,
-                imagePath: product.imagePath
+                imagePath: product.imagePath,
+                seller: product.seller
             };
             this.data.items.push(prod);
             this.calculateTotals();

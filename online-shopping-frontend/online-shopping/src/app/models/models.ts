@@ -36,10 +36,12 @@ export class Product {
   description: string;
   imagePath: string;
   price: number;
+  qty: number;
+  seller: string;
 }
 
 export class Cart {
-  items = [];
+  items: any[];
   totals = 0;
 }
 
@@ -72,7 +74,7 @@ export class Order {
   _id: String;
   totalPrice: number;
   subTotalPrice: number;
-  shippingPrice: number = 50;
+  shippingPrice: number = 10;
   purchaseDate: Date;
   status: String;
   cart: Cart;
@@ -108,7 +110,11 @@ export class Address {
 }
 
 export class Coupon {
-
+  code: string;
+  description:string;
+  percentage:number;
+  expiryDate: Date;
+  seller: string;
 }
 
 export class Payment {

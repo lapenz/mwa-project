@@ -3,20 +3,17 @@ const Schema = mongoose.Schema;
 
 const couponSchema = new Schema({
     code: {
-        type: String,
-        required: true
+        type: String
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
     percentage: {
         type: Number,
-        required: true
+        default: 0.1
     },
     expiryDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     seller: {
         type: Schema.Types.ObjectId,
@@ -26,4 +23,4 @@ const couponSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('Coupon', couponSchema);
+module.exports = couponSchema;
