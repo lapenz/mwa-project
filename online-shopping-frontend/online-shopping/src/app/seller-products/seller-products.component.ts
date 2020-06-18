@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
 import {Product} from '../models/models';
 import {ProductService} from '../services/product.service';
@@ -9,13 +9,24 @@ import {ProductService} from '../services/product.service';
   styleUrls: ['./seller-products.component.css']
 })
 export class SellerProductsComponent implements OnInit {
-  private products: Product[] = [];
-  constructor(private productService: ProductService) { }
+  products: Product[] = [];
+
+  constructor(private productService: ProductService) {
+  }
 
   ngOnInit(): void {
+    this.load();
+  }
+
+  load() {
     this.productService.findAllBySeller().subscribe((res: HttpResponse<Product[]>) => {
-      console.log(res);
       this.products = res.body;
+    });
+  }
+
+  delete(id) {
+    this.productService.delete(id).subscribe(res => {
+      this.load();
     });
   }
 
