@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
 import {OrderStatus, Product} from '../models/models';
 import {ProductService} from '../services/product.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-seller-products',
@@ -10,8 +11,7 @@ import {ProductService} from '../services/product.service';
 })
 export class SellerProductsComponent implements OnInit {
   products: Product[] = [];
-
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -27,7 +27,12 @@ export class SellerProductsComponent implements OnInit {
   delete(id) {
     if(window.confirm('Are you sure?')) {
       this.productService.delete(id).subscribe(res => {
+        this.notificationService.showSuccess(res, 'Success');
+        console.log(res)
         this.load();
+      },
+      err=> {
+        this.notificationService.showError(err.error.message, 'Error');
       });
     }
   }

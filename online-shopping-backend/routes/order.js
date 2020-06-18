@@ -6,7 +6,7 @@ const Role = require('../models/user').Roles;
 const ApiResponse = require('../models/api.response');
 
 router.get('/', authorize([Role.BUYER, Role.SELLER]), getOrder);
-router.get('/get-by-buyer', authorize([Role.BUYER, Role.SELLER]), getByBuyer);
+router.get('/get-by-buyer', authorize([Role.BUYER, Role.SELLER]), getByBuyerId);
 router.post('/', authorize(Role.BUYER), postOrder);
 router.get('/seller', authorize(Role.SELLER), getBySeller);
 router.get('/buyer', authorize(Role.BUYER), getByBuyer);
@@ -19,7 +19,7 @@ router.put('/:id', authorize(Role.SELLER, Role.BUYER), update);
     res.status(200).json(cart);
 }
 
-function getByBuyer(req, res, next) {
+function getByBuyerId(req, res, next) {
     Order.find({buyer: req.user.userId}, function (err, orders) {
         if(err) res.sendStatus(404);
         res.status(200).json(orders);

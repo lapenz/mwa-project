@@ -137,12 +137,10 @@ export class CheckoutComponent implements OnInit {
       orderSeller._id = seller;
       newOrder.seller = orderSeller;
 
-      let prodArray = items.filter(prod=> {        
-        newOrder.subTotalPrice += prod.price * prod.qty;        
-        return prod.seller == seller;
-      }); 
-
-      newOrder.shippingPrice += newOrder.subTotalPrice * 0.1;
+      let prodArray = items.filter(prod=> {return prod.seller == seller; }); 
+      
+      newOrder.subTotalPrice = prodArray.reduce((accum,item)=> { return accum + (item.price * item.qty)}, 0);  
+      newOrder.shippingPrice = newOrder.subTotalPrice * 0.1;
       newOrder.totalPrice = newOrder.subTotalPrice + newOrder.shippingPrice;
     
       newOrder.products = [...prodArray];

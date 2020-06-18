@@ -1,6 +1,7 @@
 const express = require('express');
 const ApiResponse = require('../models/api.response');
 const Product = require('../models/product');
+const Order = require('../models/order');
 const authorize = require('../middleware/authorize');
 const Role = require('../models/user').Roles;
 const router = express.Router();
@@ -49,7 +50,7 @@ function getAll(req, res, next) {
 function getBySeller(req, res, next) {
     Product.find({seller: req.user.userId}, function (err, products) {
         if(err) return res.sendStatus(404);
-        res.status(200).json(products);
+        return res.status(200).json(products);
     });
 }
 
@@ -79,10 +80,19 @@ function update(req, res, next) {
 }
 
 function deleteById(req, res, next) {
-    Product.deleteOne({_id: req.params.id}, function (err) {
-        if(err) res.sendStatus(404);
-        res.status(204).json();
+    Order.findOne({'products.id': req.params.id}, function (err, result) {
+        if(result){
+            return  res.status(403).json({ message: 'Can not delete product because its inside an order' });
+        }
+
+        Product.deleteOne({_id: req.params.id}, function (err) {
+            if(err) res.sendStatus(404);
+            res.status(204).json({ message: 'Deleted successfully' });
+        });
     });
+
+    
+    
 }
 
 

@@ -1,7 +1,17 @@
 
 <!--================ confirmation part start =================-->
+<main class="site-main">
+
 <section class="confirmation_part">
-  <div class="container">
+  
+  <div class="container" >
+    <div class="button-group-area" >
+      <a class="genric-btn primary radius" [routerLink]="'/shop'" >Continue Shopping</a>
+      <a class="genric-btn primary radius" [routerLink]="'/orders'">Back to Orders</a>
+      <button class="genric-btn primary radius" (click)="printReceipt()">Print Receipt</button>
+    
+    </div>
+    <div id="contentToConvert" #contentToConvert>
     <section class="section">
       <h1>Order</h1>
     </section>
@@ -101,5 +111,7 @@
       </div>
     </div>
   </div>
+  </div>
 </section>
 <!--================ confirmation part end =================-->
+</main>

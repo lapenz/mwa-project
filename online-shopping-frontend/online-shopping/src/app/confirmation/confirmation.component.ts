@@ -42,25 +42,6 @@ export class ConfirmationComponent implements OnInit {
 
   }
 
-  // printReceipt()  
-  // {  
-  //   var data = document.getElementById('contentToConvert');  
-  //   html2canvas(data).then(canvas => {  
-  //     // Few necessary setting options  
-  //     var imgWidth = 208;   
-  //     var pageHeight = 295;    
-  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
-  //     var heightLeft = imgHeight;  
-  
-  //     const contentDataURL = canvas.toDataURL('image/png')  
-  //     let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
-  //     var position = 0;  
-  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-  //     let guid = this.createGuid(); 
-  //     pdf.save('../reports/' + guid + '.pdf'); // Generated PDF   
-  //   });  
-  // }
-
   printReceipt() {
     const doc = new jspdf();
 

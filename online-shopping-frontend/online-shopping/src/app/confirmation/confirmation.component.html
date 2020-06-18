@@ -24,12 +24,13 @@
                 <span>Thank you. Your order has been received.</span>
             </div>
         </div>
-        <div class="checkout_btn_inner">
-            <a class="btn header-btn" [routerLink]="'/shop'">Continue Shopping</a>
-            <a class="btn header-btn" [routerLink]="'/order'">Go to Orders</a>
-            <button class="btn header-btn" (click)="printReceipt()">Print Receipt</button>
-
-        </div>
+        
+        <div class="button-group-area" style="vertical-align:right;">
+            <a class="genric-btn primary radius" [routerLink]="'/shop'" >Continue Shopping</a>
+            <a class="genric-btn primary radius" [routerLink]="'/orders'">Back to Orders</a>
+            <button class="genric-btn primary radius" (click)="printReceipt()">Print Receipt</button>
+          </div>
+        
         <div id="contentToConvert" #contentToConvert>
             <div *ngFor="let order of orders">
                 <div class="row" style="padding-top: 40px;">
