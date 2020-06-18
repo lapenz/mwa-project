@@ -132,12 +132,15 @@ export class CheckoutComponent implements OnInit {
     sellers.map( seller => {
       newOrder = {...this.order};
       newOrder.coupon.seller = seller;
-
-      let prodArray = items.filter(x=> {
-        return x.seller == seller
+      
+      let prodArray = items.filter(prod=> {        
+        newOrder.subTotalPrice += prod.price * prod.qty;        
+        return prod.seller == seller;
       }); 
-      //newOrder.products = [];
-      //newOrder.cart.items.push(prodArray);
+
+      newOrder.shippingPrice += newOrder.subTotalPrice * 0.1;
+      newOrder.totalPrice = newOrder.subTotalPrice + newOrder.shippingPrice;
+    
       newOrder.products = [...prodArray];
       console.log(newOrder);
       this.orders.push(newOrder);
