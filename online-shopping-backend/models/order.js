@@ -44,7 +44,11 @@ const orderSchema = new Schema({
         ref: 'User'
     },
     coupon: CouponSchema,
-    payment: PaymentSchema
+    payment: PaymentSchema,
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 
 });
 

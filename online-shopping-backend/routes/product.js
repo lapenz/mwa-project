@@ -41,14 +41,14 @@ function approveReview(req, res, next) {
 
 function getAll(req, res, next) {    
     Product.find({}, function (err, products) {
-        if(err) res.sendStatus(404);
+        if(err) return res.sendStatus(404);
         res.status(200).json(products);
     }).populate("seller");
 }
 
 function getBySeller(req, res, next) {
     Product.find({seller: req.user.userId}, function (err, products) {
-        if(err) res.sendStatus(404);
+        if(err) return res.sendStatus(404);
         res.status(200).json(products);
     });
 }
@@ -73,7 +73,7 @@ function getById(req, res, next) {
 
 function update(req, res, next) {
     Product.updateOne({_id: req.params.id}, req.body, function (err) {
-        if(err) res.status(500).json(err);
+        if(err) return res.status(500).json(err);
         res.sendStatus(204);
     });
 }

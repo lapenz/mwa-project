@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
-import {Product} from '../models/models';
+import {OrderStatus, Product} from '../models/models';
 import {ProductService} from '../services/product.service';
 
 @Component({
@@ -25,9 +25,11 @@ export class SellerProductsComponent implements OnInit {
   }
 
   delete(id) {
-    this.productService.delete(id).subscribe(res => {
-      this.load();
-    });
+    if(window.confirm('Are you sure?')) {
+      this.productService.delete(id).subscribe(res => {
+        this.load();
+      });
+    }
   }
 
 }

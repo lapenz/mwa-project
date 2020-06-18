@@ -16,7 +16,7 @@ export class AppComponent {
   cartQuantity = 0;
   isAuthenticated: boolean = false;
   userRoles = Roles;
-  userRole: Roles = Roles.Buyer;
+  userRole: Roles;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService, private cartService: CartService) {
     this.data = this.activatedRoute.data;

@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Orders</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Seller</th>
+      <th scope="col">Status</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.purchaseDate | date:'medium' }}</td>
+      <td>{{order.totalPrice | currency: 'USD'}}</td>
+      <td>{{order.seller.firstName}} {{order.seller.lastName}}</td>
+      <td>{{order.status}}</td>
+      <td>
+        <a [routerLink]="['/seller/orders', order._id]" class="btn btn-primary">View</a>
+        <button class="btn btn-danger" type="button" (click)="cancel(order._id)">Cancel</button>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

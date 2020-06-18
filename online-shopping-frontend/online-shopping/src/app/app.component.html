@@ -30,23 +30,26 @@
                 </ul>
               </div>
               <div [ngSwitch]="userRole" class="header-info-right">
-                <div *ngSwitchCase="userRoles.Seller">
-                  <ul>
-                    <li><a [routerLink] = "'/seller/products'">My Products</a></li>
-                  </ul>
-                </div>
-                <div *ngSwitchCase="userRoles.Admin">
-                  <ul>
-                    <li><a [routerLink] = "'/approval'">Approvals</a></li>
-                  </ul>
-                </div>
-                <div *ngSwitchDefault>
-                  <ul>
+                <ul>
+                  <div *ngSwitchCase="userRoles.Seller">
+                    <li><a [routerLink]="'/seller/products'">My Products</a></li>
+                    <li><a [routerLink]="'/seller/orders'">Orders</a></li>
+                  </div>
+                  <div *ngSwitchCase="userRoles.Admin">
+                    <li><a [routerLink]="'/approval'">Approvals</a></li>
+                  </div>
+                  <div *ngSwitchCase="userRoles.Buyer">
+                    <li><a [routerLink]="'/orders'">Orders</a></li>
                     <li><a [routerLink]="'/shop'">Shopping</a></li>
-                    <li><a [routerLink]="'/cart'" >Cart</a></li>
-                    <li><a [routerLink] = "'/checkout'">Checkout</a></li>
-                  </ul>
-                </div>
+                    <li><a [routerLink]="'/cart'">Cart</a></li>
+                    <li><a [routerLink]="'/checkout'">Checkout</a></li>
+                  </div>
+                  <div *ngSwitchDefault>
+                    <li><a [routerLink]="'/shop'">Shopping</a></li>
+                    <li><a [routerLink]="'/cart'">Cart</a></li>
+                    <li><a [routerLink]="'/checkout'">Checkout</a></li>
+                  </div>
+                </ul>
               </div>
             </div>
           </div>
@@ -98,10 +101,10 @@
                   </div>
                 </li>
                 <li class="d-none d-lg-block" *ngIf="!isAuthenticated">
-                  <a [routerLink] = "'/login'" class="btn header-btn" >Sign in</a>
+                  <a [routerLink]="'/login'" class="btn header-btn">Sign in</a>
                 </li>
                 <li class="d-none d-lg-block" *ngIf="isAuthenticated">
-                  <a href="" (click) = "onLogOut()" class="btn header-btn" >Sign out</a>
+                  <a href="" (click)="onLogOut()" class="btn header-btn">Sign out</a>
                 </li>
               </ul>
             </div>

@@ -11,6 +11,9 @@ import { ApprovalsComponent } from './admin/approvals/approvals.component';
 import {SellerProductsComponent} from './seller-products/seller-products.component';
 import {CreateProductComponent} from './product/create/create-product.component';
 import {UpdateProductComponent} from './product/update/update-product.component';
+import {SellerOrdersComponent} from './seller-orders/seller-orders.component';
+import {OrderViewComponent} from './order-view/order-view.component';
+import {BuyerOrdersComponent} from './buyer-orders/buyer-orders.component';
 
 
 const routes: Routes = [
@@ -23,6 +26,9 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'seller/products/create', component: CreateProductComponent },
   { path: 'seller/products/update/:id', component: UpdateProductComponent },
+  { path: 'seller/orders', component: SellerOrdersComponent },
+  { path: 'seller/orders/:id', component: OrderViewComponent },
+  { path: 'orders', component: BuyerOrdersComponent },
   { path: 'cart', component: CartComponent },
   { path: 'cart/add/:id', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
