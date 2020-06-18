@@ -8,6 +8,7 @@ import { OrderService } from '../services/order.service';
 import { NotificationService } from '../services/notification.service';
 import { CartService } from '../services/cart.service';
 import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -29,7 +30,8 @@ export class CheckoutComponent implements OnInit {
     private authService: AuthService, 
     private orderService: OrderService, 
     private notificationService: NotificationService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
     ) {
 
     if(authService.getLoggedInUserEvent)
@@ -63,11 +65,15 @@ export class CheckoutComponent implements OnInit {
     this.setOrderInfo();
     this.devideOrderPerSeller();
     this.orderService.Post(this.orders).subscribe(res=> {
+      this.cartService.clear();
       this.notificationService.showSuccess("Your payment has been successfully issued", 'Success');
-      this.orders =[];
+      this.router.navigate(['confirmation']);
+
     }, err => {
       this.notificationService.showError(err, 'Error');
     });
+    this.orders =[];
+    
   }
 
   checkLoggedInUser(user: User){    

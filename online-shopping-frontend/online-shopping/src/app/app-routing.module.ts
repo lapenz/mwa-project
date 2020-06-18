@@ -11,6 +11,7 @@ import { ApprovalsComponent } from './admin/approvals/approvals.component';
 import {SellerProductsComponent} from './seller-products/seller-products.component';
 import {CreateProductComponent} from './product/create/create-product.component';
 import {UpdateProductComponent} from './product/update/update-product.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'approval', component: ApprovalsComponent },
   { path: 'seller/products', component: SellerProductsComponent },
+  { path: 'confirmation', component: ConfirmationComponent },  
   { path: '**', redirectTo: 'home' }
 ];
 
