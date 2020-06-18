@@ -5,7 +5,7 @@ const authorize = require('../middleware/authorize');
 const Role = require('../models/user').Roles;
 
 router.get('/', authorize([Role.BUYER, Role.SELLER]), getOrder);
-router.get('/getByUser', authorize([Role.BUYER, Role.SELLER]), getByUser);
+router.get('/get-by-buyer', authorize([Role.BUYER, Role.SELLER]), getByBuyer);
 router.post('/', authorize(Role.BUYER), postOrder);
 
  function getOrder (req, res, next) {
@@ -17,7 +17,7 @@ router.post('/', authorize(Role.BUYER), postOrder);
     res.status(200).json(cart);
 }
 
-function getByUser(req, res, next) {
+function getByBuyer(req, res, next) {
     Order.find({buyer: req.user.userId}, function (err, orders) {
         if(err) res.sendStatus(404);
         res.status(200).json(orders);
