@@ -30,7 +30,7 @@ export class CartService {
 
   public clear() {
     return this.http.get<Cart>(this.apiUrl + '/clear', {observe: 'response', withCredentials: true})
-      .pipe(retry(3), catchError(this.handleError)).subscribe();
+      .pipe(retry(3), catchError(this.handleError));
 
   }
 
