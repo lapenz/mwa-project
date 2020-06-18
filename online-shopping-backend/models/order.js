@@ -36,7 +36,7 @@ const orderSchema = new Schema({
         enum: Object.values(Status),
         default: Status.PENDING
     },
-    cart: {type: Object, required: true},
+    products: [{type: Object, required: true}],
     billingAddress: AddressSchema,
     shippingAddress: AddressSchema,
     buyer: {

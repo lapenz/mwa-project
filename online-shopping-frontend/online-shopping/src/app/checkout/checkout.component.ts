@@ -64,6 +64,7 @@ export class CheckoutComponent implements OnInit {
     this.devideOrderPerSeller();
     this.orderService.Post(this.orders).subscribe(res=> {
       this.notificationService.showSuccess("Your payment has been successfully issued", 'Success');
+      this.orders =[];
     }, err => {
       this.notificationService.showError(err, 'Error');
     });
@@ -76,7 +77,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   setOrderCartInfo(cart: Cart){
-    this.order.cart = cart;
+    this.order.products = cart.items;
     this.order.subTotalPrice = cart.items.map(a => a.price).reduce(function(a, b)
     {
       return a + b;
@@ -116,32 +117,28 @@ export class CheckoutComponent implements OnInit {
 
   devideOrderPerSeller(){
 
-    let items = this.order.cart.items;
+    let items = [...this.order.products]
     const result = this.groupBy(items, 'seller');
     let sellers = Object.keys(result);
+    let newOrder = new Order();
+    
 
-    sellers.forEach( seller => {
-      let newOrder = new Order();
+    sellers.map( seller => {
       newOrder = {...this.order};
       newOrder.coupon.seller = seller;
 
       let prodArray = items.filter(x=> {
         return x.seller == seller
       }); 
-      newOrder.cart.items = [];
-      newOrder.cart.items.push(prodArray);
-      //newOrder.cart.items = [...prodArray];
-      //newOrder.cart.items = {...prodArray};
+      //newOrder.products = [];
+      //newOrder.cart.items.push(prodArray);
+      newOrder.products = [...prodArray];
       console.log(newOrder);
       this.orders.push(newOrder);
-      //console.log('prodArray:');
       console.log(prodArray);
-      // console.log('newOrder: ');
-      // console.log(newOrder);
-      //console.log('this.orders: ');      
+      
       console.log(this.orders);
     });
-    //console.log(this.orders);
   }
 
   groupBy(array, key) {

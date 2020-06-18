@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoginInfo, User, ApiResponse } from '../models/models';
+import { LoginInfo, User, ApiResponse, Roles } from '../models/models';
 import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
 import { Observable } from 'rxjs';
@@ -21,8 +21,16 @@ export class AuthService {
     .subscribe(
       res => {
       if (res.status === 200) {
+        if(res.result.user.isApprovedUser == 1)
+        {
           this.setSession(res.result);
           this.router.navigate(['home']);
+        }
+        else{
+          this.logout();
+          this.notificationService.showError('Your account is not approved yet', 'Error');
+        }
+         
       }
       else {
         this.notificationService.showError('Invaild username or password!', 'Error');

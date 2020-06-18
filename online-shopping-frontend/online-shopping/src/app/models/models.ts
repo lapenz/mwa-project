@@ -41,8 +41,11 @@ export class Product {
 }
 
 export class Cart {
-  items: any[];
+  items: Product[];
   totals = 0;
+  constructor() {
+    this.items = new Array();
+  }
 }
 
 export interface IService<T> {
@@ -77,7 +80,7 @@ export class Order {
   shippingPrice: number = 10;
   purchaseDate: Date;
   status: String;
-  cart: Cart;
+  products: Product[];
   billingAddress: Address;
   shippingAddress: Address;
   buyer: User;
@@ -85,7 +88,7 @@ export class Order {
   payment: Payment;
 
   constructor() {
-    this.cart = new Cart();
+    this.products = new Array();
     this.billingAddress = new Address();
     this.shippingAddress = new Address();
     this.buyer = new User();
