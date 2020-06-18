@@ -121,14 +121,16 @@ export class CheckoutComponent implements OnInit {
     let sellers = Object.keys(result);
 
     sellers.forEach( seller => {
-      let newOrder = {...this.order};
+      let newOrder = new Order();
+      newOrder = {...this.order};
       newOrder.coupon.seller = seller;
 
       let prodArray = items.filter(x=> {
         return x.seller == seller
       }); 
-      //newOrder.cart.items = []
-      newOrder.cart.items = [...prodArray];
+      newOrder.cart.items = [];
+      newOrder.cart.items.push(prodArray);
+      //newOrder.cart.items = [...prodArray];
       //newOrder.cart.items = {...prodArray};
       console.log(newOrder);
       this.orders.push(newOrder);
