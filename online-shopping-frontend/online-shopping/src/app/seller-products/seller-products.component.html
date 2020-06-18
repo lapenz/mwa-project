@@ -1,8 +1,8 @@
 <div class="container">
   <h1>My Products</h1>
-<p>
-  <a [routerLink]="['/seller/products/create']" class="btn btn-primary">Add</a>
-</p>
+  <p>
+    <a [routerLink]="['/seller/products/create']" class="genric-btn primary radius">New Product</a>
+  </p>
   <table class="table">
     <thead>
     <tr>
@@ -16,8 +16,10 @@
       <td>{{product.title}}</td>
       <td>{{product.price}}</td>
       <td>
-        <a [routerLink]="['/seller/products/update', product._id]" class="btn btn-primary">Edit</a>
-        <button class="btn btn-danger" type="button" (click)="delete(product._id)">Delete</button>
+        <div class="button-group-area">
+          <a [routerLink]="['/seller/products/update', product._id]" class="genric-btn primary radius">Edit</a>
+          <button class="genric-btn danger radius" type="button" (click)="delete(product._id)">Delete</button>
+        </div>
       </td>
     </tr>
 

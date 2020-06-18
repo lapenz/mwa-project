@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Order, OrderStatus, Product} from '../models/models';
+import {Order, OrderStatus} from '../models/models';
 import {OrderService} from '../services/order.service';
 import {HttpResponse} from '@angular/common/http';
 
@@ -10,6 +10,7 @@ import {HttpResponse} from '@angular/common/http';
 })
 export class BuyerOrdersComponent implements OnInit {
   orders: Order[];
+  orderStatus = OrderStatus;
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {

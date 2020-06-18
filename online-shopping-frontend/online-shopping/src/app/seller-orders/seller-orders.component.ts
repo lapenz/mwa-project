@@ -10,6 +10,7 @@ import {HttpResponse} from '@angular/common/http';
 })
 export class SellerOrdersComponent implements OnInit {
   orders: Order[];
+  orderStatus = OrderStatus;
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
@@ -27,6 +28,24 @@ export class SellerOrdersComponent implements OnInit {
     if(window.confirm('Are you sure?')){
 
       this.orderService.Put(id, {status: OrderStatus.CANCELED}).subscribe(res => {
+        this.load();
+      });
+    }
+  }
+
+  ship(id){
+    if(window.confirm('Are you sure?')){
+
+      this.orderService.Put(id, {status: OrderStatus.SHIPPED}).subscribe(res => {
+        this.load();
+      });
+    }
+  }
+
+  deliver(id){
+    if(window.confirm('Are you sure?')){
+
+      this.orderService.Put(id, {status: OrderStatus.DELIVERED}).subscribe(res => {
         this.load();
       });
     }
