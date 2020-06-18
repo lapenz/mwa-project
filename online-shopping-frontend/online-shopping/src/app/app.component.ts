@@ -17,12 +17,13 @@ export class AppComponent {
   isAuthenticated: boolean = false;
   userRoles = Roles;
   userRole: Roles;
+  loggedUser;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService, private cartService: CartService) {
     this.data = this.activatedRoute.data;
     if (auth.getLoggedInUser()) {
-      const user = auth.getLoggedInUser();
-      this.changeAuthenticatedUser(user);
+      this.loggedUser = auth.getLoggedInUser();
+      this.changeAuthenticatedUser(this.loggedUser);
     } else {
       auth.getLoggedInUserEvent.subscribe(user => this.changeAuthenticatedUser(user));
     }

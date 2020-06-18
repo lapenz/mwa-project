@@ -31,24 +31,30 @@
               </div>
               <div [ngSwitch]="userRole" class="header-info-right">
                 <ul>
-                  <div *ngSwitchCase="userRoles.Seller">
+
+                  <span *ngSwitchCase="userRoles.Seller">
                     <li><a [routerLink]="'/seller/products'">My Products</a></li>
                     <li><a [routerLink]="'/seller/orders'">Orders</a></li>
-                  </div>
-                  <div *ngSwitchCase="userRoles.Admin">
+                  </span>
+                  <span *ngSwitchCase="userRoles.Admin">
                     <li><a [routerLink]="'/approval'">Approvals</a></li>
-                  </div>
-                  <div *ngSwitchCase="userRoles.Buyer">
+                  </span>
+                  <span *ngSwitchCase="userRoles.Buyer">
                     <li><a [routerLink]="'/orders'">Orders</a></li>
                     <li><a [routerLink]="'/shop'">Shopping</a></li>
                     <li><a [routerLink]="'/cart'">Cart</a></li>
                     <li><a [routerLink]="'/checkout'">Checkout</a></li>
-                  </div>
-                  <div *ngSwitchDefault>
+                  </span>
+                  <span *ngSwitchDefault>
                     <li><a [routerLink]="'/shop'">Shopping</a></li>
                     <li><a [routerLink]="'/cart'">Cart</a></li>
                     <li><a [routerLink]="'/checkout'">Checkout</a></li>
-                  </div>
+                  </span>
+                  <span *ngIf="loggedUser">
+                    <li>
+                      <a [routerLink]="'/home'">| Hi, {{loggedUser.firstName}} {{loggedUser.lastName}}</a>
+                    </li>
+                  </span>
                 </ul>
               </div>
             </div>

@@ -11,7 +11,7 @@ router.post('/', authorize(Role.BUYER), postOrder);
 router.get('/seller', authorize(Role.SELLER), getBySeller);
 router.get('/buyer', authorize(Role.BUYER), getByBuyer);
 router.get('/:id', getById);
-router.put('/:id', authorize(Role.SELLER, Role.BUYER), update);
+router.put('/:id', authorize([Role.SELLER, Role.BUYER]), update);
 
  function getOrder (req, res, next) {
     const cart = req.session.cart;
