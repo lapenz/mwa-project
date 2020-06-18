@@ -24,6 +24,11 @@ export class OrderService implements IService<Order>{
         })
       );
   }
+
+  GetByUser() {
+    return this.http.get<Order[]>(this.apiUrl + '/get-by-buyer', {observe: 'response'});
+  }
+
   Post(entity: any): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(this.apiUrl, entity)
     .pipe(

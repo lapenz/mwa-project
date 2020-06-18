@@ -6,6 +6,7 @@ const Role = require('../models/user').Roles;
 const ApiResponse = require('../models/api.response');
 
 router.get('/', authorize([Role.BUYER, Role.SELLER]), getOrder);
+router.get('/get-by-buyer', authorize([Role.BUYER, Role.SELLER]), getByBuyer);
 router.post('/', authorize(Role.BUYER), postOrder);
 router.get('/seller', authorize(Role.SELLER), getBySeller);
 router.get('/buyer', authorize(Role.BUYER), getByBuyer);
@@ -16,6 +17,13 @@ router.put('/:id', authorize(Role.SELLER, Role.BUYER), update);
     const cart = req.session.cart;
 
     res.status(200).json(cart);
+}
+
+function getByBuyer(req, res, next) {
+    Order.find({buyer: req.user.userId}, function (err, orders) {
+        if(err) res.sendStatus(404);
+        res.status(200).json(orders);
+    });
 }
 
 function postOrder(req, res, next) {
@@ -29,9 +37,13 @@ function postOrder(req, res, next) {
     Order.insertMany(orders, function (err, result) {
         req.session.cart = null;
         if (err) {
+            return res.status(400).json({message: 'Saving error'});
             console.log(err);
-          };
-          console.log(result);
+          }else{
+            console.log(result);
+          }
+          
+          return res.status(201).json({message: 'Created'});
     });
 }
 

@@ -14,6 +14,8 @@ import {UpdateProductComponent} from './product/update/update-product.component'
 import {SellerOrdersComponent} from './seller-orders/seller-orders.component';
 import {OrderViewComponent} from './order-view/order-view.component';
 import {BuyerOrdersComponent} from './buyer-orders/buyer-orders.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+
 
 
 const routes: Routes = [
@@ -34,6 +36,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'approval', component: ApprovalsComponent },
   { path: 'seller/products', component: SellerProductsComponent },
+  { path: 'confirmation', component: ConfirmationComponent },
   { path: '**', redirectTo: 'home' }
 ];
 
