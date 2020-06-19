@@ -16,6 +16,7 @@ export class User {
   birthDate: Date;
   role: string;
   isApprovedUser: number;
+  points: number;
 }
 
 export class LoginInfo {

@@ -35,7 +35,8 @@ const userSchema = new Schema({
         enum : Object.values(Roles),
         default: Roles.BUYER
     },
-    isApprovedUser: Number
+    isApprovedUser: Number,
+    points: Number
 
 });
 

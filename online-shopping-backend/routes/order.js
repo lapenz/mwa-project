@@ -23,7 +23,7 @@ function getByBuyerId(req, res, next) {
     Order.find({buyer: req.user.userId}, function (err, orders) {
         if(err) res.sendStatus(404);
         res.status(200).json(orders);
-    });
+    }).populate('seller');
 }
 
 function postOrder(req, res, next) {

@@ -56,7 +56,8 @@ export class CheckoutComponent implements OnInit {
   onSubmit(){
 
     if(this.signInForm.valid) {
-      this.authService.login(this.signInForm.value);
+      const ischeckOutPage = true;
+      this.authService.login(this.signInForm.value, ischeckOutPage);
     }
   }
 
@@ -131,7 +132,13 @@ export class CheckoutComponent implements OnInit {
 
     sellers.map( seller => {
       newOrder = {...this.order};
+
       newOrder.coupon.seller = seller;
+      if(newOrder.coupon.code){
+        newOrder.coupon.percentage = 0.05;
+        this.calculateUserPoints(newOrder.coupon.percentage);
+      }
+
 
       const orderSeller = new User();
       orderSeller._id = seller;
@@ -139,16 +146,30 @@ export class CheckoutComponent implements OnInit {
 
       let prodArray = items.filter(prod=> {return prod.seller == seller; }); 
       
+      
       newOrder.subTotalPrice = prodArray.reduce((accum,item)=> { return accum + (item.price * item.qty)}, 0);  
       newOrder.shippingPrice = newOrder.subTotalPrice * 0.1;
       newOrder.totalPrice = newOrder.subTotalPrice + newOrder.shippingPrice;
     
-      newOrder.products = [...prodArray];
-      console.log(newOrder);
-      this.orders.push(newOrder);
-      console.log(prodArray);
+      if(newOrder.coupon.percentage){
+        newOrder.totalPrice = newOrder.totalPrice - (newOrder.totalPrice * newOrder.coupon.percentage);
+      }
 
-      console.log(this.orders);
+      newOrder.products = [...prodArray];
+      this.orders.push(newOrder);
+
+      //console.log(newOrder);   
+      //console.log(prodArray);
+      //console.log(this.orders);
+    });
+  }
+
+  calculateUserPoints(percentage: number){
+    this.userModel.points += percentage;
+    this.authService.updateUser(this.userModel._id, this.userModel)
+    .subscribe(res=> {      
+    },
+    err=> { 
     });
   }
 

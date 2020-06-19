@@ -12,10 +12,15 @@ import { Observable } from 'rxjs';
 export class AuthService {
   @Output() getLoggedInUserEvent: EventEmitter<any> = new EventEmitter();
   private apiUrl = environment.apiUrl;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   constructor(private http: HttpClient, private router: Router, private notificationService: NotificationService ) { }
 
-  login(loginInfo: LoginInfo) {
+  login(loginInfo: LoginInfo, ischeckOutPage: boolean) {
     let body = { "username": loginInfo.username, "password": loginInfo.password };
     this.http.post<ApiResponse>(this.apiUrl + 'signin', body, { responseType: 'json' })
     .subscribe(
@@ -24,7 +29,12 @@ export class AuthService {
         if(res.result.user.isApprovedUser == 1)
         {
           this.setSession(res.result);
-          this.router.navigate(['home']);
+          if(ischeckOutPage){
+            this.router.navigate(['checkout']);
+          } else{
+            this.router.navigate(['home']);
+          }
+          
         }
         else{
           this.logout();
@@ -114,4 +124,9 @@ export class AuthService {
   destroyToken() {
     window.localStorage.removeItem('token');
   }
+
+  public updateUser(id: string, user: User) {
+    return this.http.put<User>(this.apiUrl + 'users/' + id, JSON.stringify(user), this.httpOptions);
+  }
+
 }

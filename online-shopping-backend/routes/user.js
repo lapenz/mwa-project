@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const ApiResponse = require('../models/api.response');
 const authorize = require('../middleware/authorize');
@@ -84,6 +85,7 @@ router.put('/:userId', (req, res, next) => {
             user.email = req.body.email;
             user.birthDate = req.body.birthDate;
             user.role = req.body.role;
+            user.points = req.body.points
 
             return user.save();
         })

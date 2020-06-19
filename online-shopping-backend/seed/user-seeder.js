@@ -14,6 +14,7 @@ var users = [
         "email":"aawad@miu.edu",
         "role":"Admin",
         "isApprovedUser":1,
+        "points": 0,
         "birthDate":"1987-08-27T00:00:00.000Z"
     })
     ,
@@ -26,6 +27,7 @@ var users = [
         "email":"lpenz@miu.edu",
         "role":"Buyer",
         "isApprovedUser":1,
+        "points": 0,
         "birthDate":"1990-04-22T00:00:00.000Z"
     }),
     new User({
@@ -37,6 +39,7 @@ var users = [
         "email":"txing@miu.edu",
         "role":"Seller",
         "isApprovedUser":1,
+        "points": 0,
         "birthDate":"1990-04-22T00:00:00.000Z"
     }),
     
@@ -49,6 +52,7 @@ var users = [
         "lastName":"Seller",
         "email":"Mark@miu.edu",
         "isApprovedUser":0,
+        "points": 0,
         "birthDate":"1990-04-22T00:00:00.000Z"
     })
 ];

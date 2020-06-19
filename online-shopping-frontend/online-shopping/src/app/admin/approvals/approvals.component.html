@@ -25,6 +25,7 @@
             <form class="row contact_form" [formGroup]="approvalForm">
                 <div class="col-md-12 form-group p_star">
                     <select name="approvalType" formControlName="approvalType" class="form-control">
+                        <option value="0" selected>Select Approval Type...</option>
                         <option *ngFor="let item of approvalTypes | enumToArray" [value]="item.index">{{item.name}}</option>
                     </select>
                 </div>

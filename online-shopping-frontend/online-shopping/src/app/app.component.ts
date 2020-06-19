@@ -17,7 +17,7 @@ export class AppComponent {
   isAuthenticated: boolean = false;
   userRoles = Roles;
   userRole: Roles;
-  loggedUser;
+  loggedUser: User;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private auth: AuthService, private cartService: CartService) {
     this.data = this.activatedRoute.data;
@@ -37,14 +37,23 @@ export class AppComponent {
 
   private changeAuthenticatedUser(user?: User) {
     if (user) {
-
+      this.setCartQuantity();
       this.setUserRole(user.role);
       this.isAuthenticated = true;
+      this.loggedUser = user;
     } else {
+      this.cartQuantity = 0;
       this.setUserRole('');
       this.isAuthenticated = false;
+      this.loggedUser = null;
     }
 
+  }
+
+  setCartQuantity(){    
+      this.cartService.getCart().subscribe((res: HttpResponse<Cart>) => {
+        this.cartQuantity = res.body.items.length;
+      });  
   }
 
   setUserRole(role: String) {
