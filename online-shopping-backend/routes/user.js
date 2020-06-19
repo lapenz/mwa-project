@@ -75,23 +75,29 @@ router.get('/:userId', (req, res, next) => {
 });
 
 router.put('/:userId', (req, res, next) => {
-    User.findById(req.params.userId)
-        .then(user => {
-            const hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    
+    User.updateOne({_id: req.params.userId}, {$set:{points: req.body.points}}, function (err) {
+        if (err) return res.status(500).json(err);
+        return res.sendStatus(200);
+    });
+    
+    // User.findById(req.params.userId)
+    //     .then(user => {
+    //         //const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
-            user.password = hashedPassword;
-            user.firstName = req.body.firstName;
-            user.lastName = req.body.lastName;
-            user.email = req.body.email;
-            user.birthDate = req.body.birthDate;
-            user.role = req.body.role;
-            user.points = req.body.points
+    //         //user.password = hashedPassword;
+    //         // user.firstName = req.body.firstName;
+    //         // user.lastName = req.body.lastName;
+    //         // user.email = req.body.email;
+    //         // user.birthDate = req.body.birthDate;
+    //         // user.role = req.body.role;
+    //         user.points = req.body.points;
 
-            return user.save();
-        })
-        .then(result => {
-            res.status(200).send(new ApiResponse(200, 'success', result));
-        });
+    //         return user.save();
+    //     })
+    //     .then(result => {
+    //         res.status(200).send(new ApiResponse(200, 'success', result));
+    //     });
 });
 
 router.delete('/:userId', (req, res, next) => {
