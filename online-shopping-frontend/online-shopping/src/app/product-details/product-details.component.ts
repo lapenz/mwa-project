@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../services/product.service';
 import {HttpResponse} from '@angular/common/http';
-import {Product} from '../models/models';
+import {Product, Review, Roles, User} from '../models/models';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-product-details',
@@ -12,18 +13,23 @@ import {Product} from '../models/models';
 export class ProductDetailsComponent implements OnInit {
   id: string;
   product: Product = new Product();
+  Arr = Array;
+  approvedReviews: Review[];
+  loggedUser: User;
+  userRoles = Roles;
 
-  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) {
+  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.productService.findById(id).subscribe((res: HttpResponse<Product>) => {
-      console.log(res);
       this.product = res.body;
+      this.approvedReviews = this.product.reviews.filter(r => r.approved);
     });
 
+    this.loggedUser = this.authService.getLoggedInUser();
     this.loadScripts();
   }
 

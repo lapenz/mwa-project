@@ -21,4 +21,8 @@ export class ListProductComponent implements OnInit {
     });
   }
 
+  counter(i: number) {
+    return new Array(i);
+  }
+
 }

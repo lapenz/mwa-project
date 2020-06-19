@@ -26,6 +26,7 @@ import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
 import { OrderViewComponent } from './order-view/order-view.component';
 import {BuyerOrdersComponent} from './buyer-orders/buyer-orders.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     SellerOrdersComponent,
     BuyerOrdersComponent,
     OrderViewComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    AddReviewComponent
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

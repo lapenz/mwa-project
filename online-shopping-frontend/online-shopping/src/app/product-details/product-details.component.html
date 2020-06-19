@@ -50,6 +50,45 @@
           </div>
         </div>
       </div>
+
+      <div class="col-lg-8">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <h1>Reviews</h1>
+                <hr/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+<!--                <div class="row">-->
+<!--                  <div class="col-md-6">-->
+
+<!--                    <h5>Overall Rating</h5>-->
+<!--                  </div>-->
+<!--                  <div class="col-md-6 text-warning">-->
+<!--                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <hr>-->
+                <div class="row" *ngFor="let review of approvedReviews">
+                  <div class="col-md-6">
+                    <p>{{review.description}}</p>
+                  </div>
+                  <div  class="col-md-6 text-warning">
+                    <i *ngFor="let i of Arr(review.rating)" class="fa fa-star"></i>
+                  </div>
+                </div>
+
+                <hr>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-lg-8">
+        <app-add-review *ngIf="loggedUser.role === userRoles.Buyer" buyer="{{loggedUser}}" productId="{{product._id}}"></app-add-review>
+      </div>
     </div>
   </div>
 </div>

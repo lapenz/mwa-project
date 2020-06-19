@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Product} from '../models/models';
+import {Product, Review} from '../models/models';
 import {Router} from '@angular/router';
 import {catchError, retry, tap} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
@@ -42,6 +42,10 @@ export class ProductService {
 
   public delete(id: string){
     return this.http.delete<Product>(this.apiUrl + id);
+  }
+
+  public createReview(id: string, review: Review) {
+    return this.http.put<Product>(this.apiUrl + 'reviews/add/' + id, JSON.stringify(review), this.httpOptions);
   }
 
 

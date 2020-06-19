@@ -39,6 +39,17 @@ export class Product {
   price: number;
   qty: number;
   seller: string;
+  reviews: Review[];
+
+  reviewAverage = () => {
+      let average = 0;
+      if (this.reviews) {
+        average = this.reviews.reduce( (sum, value) => {
+          return sum + value.rating;
+        }, 0) / this.reviews.length;
+      }
+      return 3;
+    };
 }
 
 export class Cart {
@@ -100,8 +111,10 @@ export class Order {
 }
 
 export class Review {
-  description: String;
-  rating:number;
+  description: string;
+  rating: number;
+  buyer: string;
+  approved = false;
 }
 
 export class Address {
