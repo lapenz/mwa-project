@@ -22,7 +22,7 @@
     "angular-validation-match": "^1.9.0",
     "bootstrap": "^4.5.0",
     "html2canvas": "^1.0.0-rc.5",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "ngx-toastr": "^12.1.0",
     "ngx-validators": "^5.2.1",
     "rxjs": "~6.5.4",
